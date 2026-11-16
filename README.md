@@ -92,13 +92,19 @@ Cloudflare 的 Git 集成不支持 Gitee；如需 push 自动部署，把仓库�
 - 改 `data.js` 后：方式一需重新拖拽上传一次；方式二重跑 `wrangler pages deploy .`；方式三 push 即自动
 - 代码继续托管在 Gitee 仓库（freeparkmap）作为主仓库
 
-## 备选：腾讯云 EdgeOne Makers（国际站）
+## 备选/并列推荐：腾讯云 EdgeOne Makers（国内站）
 
-EdgeOne（edgeone.ai，腾讯云**国际站**产品）免费版请求与流量不限量，支持导入 Gitee 仓库自动部署。注意两点：
-1. 账号是腾讯云国际站体系（console.tencentcloud.com），与国内站不通用
-2. 默认域名 `*.edgeone.app` 走海外近岸节点（香港/新加坡等），**并非大陆 CDN**；绑定已 ICP 备案的域名才走大陆节点加速
+腾讯云**国内站**控制台（微信扫码/实名认证账号即可）就提供 Makers 部署服务，且**支持导入 Gitee 仓库自动部署**（官方文档明确支持 GitHub、Gitee 等）。入口：
 
-若日后 CF Pages 访问不稳定，可补部署一份 EdgeOne 作备胎。
+1. 登录 [EdgeOne 国内站控制台](https://console.cloud.tencent.com/edgeone) → Makers 标签 → 创建项目 → 「导入 Git 仓库」
+2. 关联 Gitee 账号，选择 `freeparkmap` 仓库，构建命令留空、输出目录填 `/`
+3. 之后每次 `git push` 自动重新部署（比 CF 的拖拽方式更省事）
+
+注意两点：
+1. 创建项目时的「加速区域」：选择不含中国大陆的区域（如"全球（不含中国大陆）"）可直接用默认域名 `*.edgeone.app` 免备案；要选含大陆节点的加速区域，域名必须已 ICP 备案
+2. 免费政策以控制台显示为准（公测期免费）
+
+与 CF Pages 并列部署一份做对比也是不错的做法。
 
 ## 功能清单
 
