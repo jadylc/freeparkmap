@@ -67,33 +67,38 @@ git push -u origin main        # 首次推送，按提示登录 Gitee（密码�
 
 远程仓库已配置：https://gitee.com/jadylc/freeparkmap.git
 
-## 部署到腾讯云 EdgeOne Pages（国内访问更快，推荐）
+## 部署到 Cloudflare Pages（推荐：免费、免备案、注册简单）
 
-腾讯 EdgeOne Pages（现名 Makers）免费版：请求与流量均不限量、40 个项目、5GB 存储。入口：https://pages.edgeone.ai
+**方式一：控制台拖拽（最简单）**
+1. 打开 https://dash.cloudflare.com 注册/登录（邮箱即可，免费版无需信用卡）
+2. 左侧「Workers 和 Pages」→ 创建应用程序 → Pages → 「直接上传 / Upload assets」
+3. 项目名填 `sh-free-parking`，把本目录整个文件夹拖进去 → 部署
+4. 完成后得到 `https://sh-free-parking.pages.dev`，手机访问验证地图与搜索
 
-**方法一：控制台直接上传（最简单）**
-1. 登录控制台 → Makers → 创建项目 → 直接上传（Direct Upload）
-2. 把本目录整个文件夹拖进去，部署完成得到 `xxx.edgeone.app` 地址（默认域名国内可访问，无需备案）
-
-**方法二：导入 Gitee 仓库（推荐，推送即自动部署）**
-1. 控制台 → Makers → 创建项目 → 导入 Git 仓库 → 选择 Gitee 授权
-2. 选择 `freeparkmap` 仓库，构建命令留空、输出目录填 `/`
-3. 之后每次 `git push` 自动重新部署
-
-**方法三：EdgeOne CLI**
+**方式二：wrangler CLI**
 ```bash
-npm install -g edgeone
-edgeone login
-edgeone pages deploy
+npm install -g wrangler
+wrangler login
+wrangler pages deploy . --project-name=sh-free-parking
 ```
 
-> 注意：使用平台默认域名（`*.edgeone.app`）无需 ICP 备案；绑定自定义域名并要求大陆节点加速时，域名需完成 ICP 备案。
+**方式三：Git 自动部署（需 GitHub/GitLab）**
+Cloudflare 的 Git 集成不支持 Gitee；如需 push 自动部署，把仓库同步一份到 GitHub，在 Pages 项目设置里连接即可（构建命令留空、输出目录 `/`）。
 
-## 部署到 Cloudflare Pages（海外访客补充）
+> 说明：默认域名 `*.pages.dev` 走 Cloudflare 全球节点（无大陆节点），国内一般可直连访问；免费额度 500 次构建/月、20,000 文件、单文件 25 MiB，静态请求不计费。
 
-1. 打开 https://dash.cloudflare.com → Workers 和 Pages → 创建 → Pages → "直接上传"，拖入本目录即可
-2. 或 CLI：`npm install -g wrangler && wrangler login && wrangler pages deploy . --project-name=sh-free-parking`
-3. 免费版限制：500 次构建/月、20,000 文件、单文件 25 MiB；静态请求不计费
+## 数据更新与重新部署
+
+- 改 `data.js` 后：方式一需重新拖拽上传一次；方式二重跑 `wrangler pages deploy .`；方式三 push 即自动
+- 代码继续托管在 Gitee 仓库（freeparkmap）作为主仓库
+
+## 备选：腾讯云 EdgeOne Makers（国际站）
+
+EdgeOne（edgeone.ai，腾讯云**国际站**产品）免费版请求与流量不限量，支持导入 Gitee 仓库自动部署。注意两点：
+1. 账号是腾讯云国际站体系（console.tencentcloud.com），与国内站不通用
+2. 默认域名 `*.edgeone.app` 走海外近岸节点（香港/新加坡等），**并非大陆 CDN**；绑定已 ICP 备案的域名才走大陆节点加速
+
+若日后 CF Pages 访问不稳定，可补部署一份 EdgeOne 作备胎。
 
 ## 功能清单
 
