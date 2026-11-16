@@ -401,7 +401,7 @@ const POIS = [
  },
  {
   "id": 27,
-  "name": "张江大桶天地",
+  "name": "张江大橘天地",
   "district": "浦东新区",
   "tier": "无门槛",
   "rules": [
@@ -410,9 +410,9 @@ const POIS = [
     "t": "免费3小时"
    }
   ],
-  "lng": 121.587932,
-  "lat": 31.204837,
-  "approx": true
+  "lng": 121.638501,
+  "lat": 31.203853,
+  "approx": false
  },
  {
   "id": 28,
@@ -556,7 +556,7 @@ const POIS = [
   "tier": "无门槛",
   "rules": [
    {
-    "h": "3h",
+    "h": "4h",
     "t": "会员任意消费积分免费4小时"
    }
   ],
@@ -602,7 +602,7 @@ const POIS = [
   "rules": [
    {
     "h": "8h",
-    "t": "免费6小时"
+    "t": "免费8小时"
    }
   ],
   "lng": 121.539263,
@@ -2075,6 +2075,10 @@ const POIS = [
    {
     "h": "1h",
     "t": "会员任意消费积分免费1h"
+   },
+   {
+    "h": "2h",
+    "t": "充电10分钟/1000积分千寻卡"
    }
   ],
   "lng": 121.463104,
@@ -2162,21 +2166,6 @@ const POIS = [
  },
  {
   "id": 142,
-  "name": "太古汇",
-  "district": "静安区",
-  "tier": "需消费",
-  "rules": [
-   {
-    "h": "2h",
-    "t": "充电10分钟/1000积分千寻卡"
-   }
-  ],
-  "lng": 121.463104,
-  "lat": 31.228926,
-  "approx": false
- },
- {
-  "id": 143,
   "name": "大宁久光",
   "district": "静安区",
   "tier": "需消费",
@@ -2191,7 +2180,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 144,
+  "id": 143,
   "name": "上海利园",
   "district": "静安区",
   "tier": "需消费",
@@ -2210,7 +2199,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 145,
+  "id": 144,
   "name": "ITC国汇茂",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2225,7 +2214,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 146,
+  "id": 145,
   "name": "绿地缤纷城",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2240,7 +2229,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 147,
+  "id": 146,
   "name": "漕河泾印象城",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2255,7 +2244,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 148,
+  "id": 147,
   "name": "凌云天地",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2270,7 +2259,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 149,
+  "id": 148,
   "name": "中星城",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2285,7 +2274,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 150,
+  "id": 149,
   "name": "云锦天地",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2300,7 +2289,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 151,
+  "id": 150,
   "name": "漕河泾M+",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2315,7 +2304,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 152,
+  "id": 151,
   "name": "徐汇宜家",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2334,7 +2323,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 153,
+  "id": 152,
   "name": "FFC滨江悦里",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2349,7 +2338,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 154,
+  "id": 153,
   "name": "徐汇月光",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2364,7 +2353,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 155,
+  "id": 154,
   "name": "西岸中环",
   "district": "徐汇区",
   "tier": "无门槛",
@@ -2379,7 +2368,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 156,
+  "id": 155,
   "name": "尚湾里",
   "district": "徐汇区",
   "tier": "需消费",
@@ -2394,7 +2383,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 157,
+  "id": 156,
   "name": "东鼎购物中心",
   "district": "松江区",
   "tier": "无门槛",
@@ -2409,7 +2398,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 158,
+  "id": 157,
   "name": "乐尚天地生活广场",
   "district": "松江区",
   "tier": "无门槛",
@@ -2424,7 +2413,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 159,
+  "id": 158,
   "name": "云间粮仓",
   "district": "松江区",
   "tier": "无门槛",
@@ -2439,7 +2428,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 160,
+  "id": 159,
   "name": "亚乐城",
   "district": "松江区",
   "tier": "无门槛",
@@ -2454,7 +2443,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 161,
+  "id": 160,
   "name": "佘山旭辉里",
   "district": "松江区",
   "tier": "无门槛",
@@ -2469,7 +2458,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 162,
+  "id": 161,
   "name": "信泰中心",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2488,7 +2477,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 163,
+  "id": 162,
   "name": "近铁城市广场南区",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2503,7 +2492,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 164,
+  "id": 163,
   "name": "山姆真如店",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2518,7 +2507,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 165,
+  "id": 164,
   "name": "桃浦湾TOP ONE",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2533,7 +2522,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 166,
+  "id": 165,
   "name": "长风大悦城",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2548,7 +2537,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 167,
+  "id": 166,
   "name": "鸿寿坊",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2563,7 +2552,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 168,
+  "id": 167,
   "name": "118广场",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2578,7 +2567,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 169,
+  "id": 168,
   "name": "红星美凯龙真北路",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2593,7 +2582,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 170,
+  "id": 169,
   "name": "真如环宇城MAX",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2608,7 +2597,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 171,
+  "id": 170,
   "name": "桃浦TOP金光汇",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2623,7 +2612,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 172,
+  "id": 171,
   "name": "星邻·生活荟",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2638,7 +2627,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 173,
+  "id": 172,
   "name": "金环广场",
   "district": "普陀区",
   "tier": "无门槛",
@@ -2653,7 +2642,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 174,
+  "id": 173,
   "name": "长风via",
   "district": "普陀区",
   "tier": "需消费",
@@ -2672,7 +2661,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 175,
+  "id": 174,
   "name": "宝山经纬汇",
   "district": "宝山区",
   "tier": "无门槛",
@@ -2687,7 +2676,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 176,
+  "id": 175,
   "name": "定海神针观光塔",
   "district": "宝山区",
   "tier": "无门槛",
@@ -2702,7 +2691,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 177,
+  "id": 176,
   "name": "大华老镇嘉年华",
   "district": "宝山区",
   "tier": "无门槛",
@@ -2717,7 +2706,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 178,
+  "id": 177,
   "name": "宝山月光",
   "district": "宝山区",
   "tier": "无门槛",
@@ -2736,7 +2725,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 179,
+  "id": 178,
   "name": "翼生活广场",
   "district": "宝山区",
   "tier": "无门槛",
@@ -2751,7 +2740,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 180,
+  "id": 179,
   "name": "大华虎城中心",
   "district": "宝山区",
   "tier": "无门槛",
@@ -2766,7 +2755,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 181,
+  "id": 180,
   "name": "世华1956广场",
   "district": "宝山区",
   "tier": "无门槛",
@@ -2781,7 +2770,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 182,
+  "id": 181,
   "name": "海上世界",
   "district": "宝山区",
   "tier": "无门槛",
@@ -2796,7 +2785,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 183,
+  "id": 182,
   "name": "金富门Park1287",
   "district": "宝山区",
   "tier": "无门槛",
@@ -2811,7 +2800,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 184,
+  "id": 183,
   "name": "山姆聚丰广场",
   "district": "宝山区",
   "tier": "需消费",
@@ -2826,7 +2815,7 @@ const POIS = [
   "approx": false
  },
  {
-  "id": 185,
+  "id": 184,
   "name": "中集金地广场",
   "district": "宝山区",
   "tier": "需消费",
