@@ -1,206 +1,2843 @@
 /* 上海免费停车点数据
  * 来源：用户提供的攻略图集（2025-11 整理），按区分组转录。
  * rules 数组支持一个商场多条免费规则；h=时长，t=条件说明。
- * lng/lat 坐标由 tools/geocode.js 自动定位生成（GCJ-02，适配高德底图），
+ * lng/lat 为 GCJ-02 坐标（适配高德底图），由高德 POI 搜索（tools/geocode-amap.js）定位。
  * approx=true 表示坐标为近似位置，建议导航前用商场名二次确认。
  */
 const POIS = [
-/* ---------- 浦东新区 ---------- */
-{ id: 1, name: "陆家嘴尚悦湾", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "周末节假日" }], lng: null, lat: null, approx: false },
-{ id: 2, name: "富荟广场", district: "浦东新区", tier: "无门槛", rules: [{ h: "4h", t: "会员免费" }], lng: null, lat: null, approx: false },
-{ id: 3, name: "北蔡宜家", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "会员免费" }], lng: null, lat: null, approx: false },
-{ id: 4, name: "老船厂1862", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "周末节假日3h" }, { h: "1h", t: "工作日消费满68换1h，客服台核销" }], lng: null, lat: null, approx: false },
-{ id: 5, name: "金谊广场", district: "浦东新区", tier: "无门槛", rules: [{ h: "2h", t: "会员" }], lng: null, lat: null, approx: false },
-{ id: 6, name: "丁香国际", district: "浦东新区", tier: "无门槛", rules: [{ h: "1h", t: "周末节假日、100积分" }], lng: null, lat: null, approx: false },
-{ id: 7, name: "万嘉广场", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "公众号领券，每天领1次" }], lng: null, lat: null, approx: false },
-{ id: 8, name: "麦德龙（浦东店）", district: "浦东新区", tier: "无门槛", rules: [{ h: "2h", t: "任意消费免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 9, name: "唐镇阳光天地", district: "浦东新区", tier: "无门槛", rules: [{ h: "1h", t: "周末节假日免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 10, name: "山姆高科西路店", district: "浦东新区", tier: "无门槛", rules: [{ h: "2h", t: "免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 11, name: "佛罗伦萨小镇", district: "浦东新区", tier: "无门槛", rules: [{ h: "5h", t: "会员免费5小时" }], lng: null, lat: null, approx: false },
-{ id: 12, name: "东方懿德城", district: "浦东新区", tier: "无门槛", rules: [{ h: "6h", t: "免费6小时" }], lng: null, lat: null, approx: false },
-{ id: 13, name: "花木陆悦坊", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "注册会员送200积分，50积分免费1h" }], lng: null, lat: null, approx: false },
-{ id: 14, name: "前滩陆悦汇", district: "浦东新区", tier: "无门槛", rules: [{ h: "2h", t: "周末节假日任意餐饮零售/工作日任意消费免费2h" }], lng: null, lat: null, approx: false },
-{ id: 15, name: "Costco浦东店", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "会员消费免费3h" }], lng: null, lat: null, approx: false },
-{ id: 16, name: "花木时光里", district: "浦东新区", tier: "无门槛", rules: [{ h: "1h", t: "会员免费1h，新会员送100积分，30积分兑换1h（上限2h）" }], lng: null, lat: null, approx: false },
-{ id: 17, name: "航头浦乐汇", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "会员免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 18, name: "川沙九六广场", district: "浦东新区", tier: "无门槛", rules: [{ h: "6h", t: "会员领2个3小时停车券" }], lng: null, lat: null, approx: false },
-{ id: 19, name: "世博天地", district: "浦东新区", tier: "无门槛", rules: [{ h: "5h", t: "首3小时免费，会员每日免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 20, name: "亿丰时代广场", district: "浦东新区", tier: "无门槛", rules: [{ h: "2h", t: "关注微信公众号免费2h，消费满66元领2h停车券" }], lng: null, lat: null, approx: false },
-{ id: 21, name: "陆悦天地", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "会员任意消费并积分免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 22, name: "前滩L+plaza", district: "浦东新区", tier: "无门槛", rules: [{ h: "4h", t: "会员周末及节假日免费4小时" }], lng: null, lat: null, approx: false },
-{ id: 23, name: "祝桥天和广场", district: "浦东新区", tier: "无门槛", rules: [{ h: "2h", t: "会员免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 24, name: "惠南禹悦汇", district: "浦东新区", tier: "无门槛", rules: [{ h: "2h", t: "会员免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 25, name: "世纪汇", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "会员注册加绑定无感支付1300积分，300积分免费1h" }], lng: null, lat: null, approx: false },
-{ id: 26, name: "浦发唐城天地", district: "浦东新区", tier: "无门槛", rules: [{ h: "6h", t: "会员任意消费并集星免费6小时" }], lng: null, lat: null, approx: false },
-{ id: 27, name: "张江大桶天地", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 28, name: "新环广场", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 29, name: "EKA天物", district: "浦东新区", tier: "无门槛", rules: [{ h: "2h", t: "周一到周五免费2小时，周末消费满99元免费2h" }], lng: null, lat: null, approx: false },
-{ id: 30, name: "浦发唐镇印象汇", district: "浦东新区", tier: "无门槛", rules: [{ h: "6h", t: "任意消费免费6小时" }], lng: null, lat: null, approx: false },
-{ id: 31, name: "前滩公园巷", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "会员免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 32, name: "慧华里", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 33, name: "金桥月光", district: "浦东新区", tier: "无门槛", rules: [{ h: "1h", t: "12:00-13:00、18:00-19:00 免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 34, name: "御桥九六广场", district: "浦东新区", tier: "无门槛", rules: [{ h: "6h", t: "免费6小时" }], lng: null, lat: null, approx: false },
-{ id: 35, name: "美达广场", district: "浦东新区", tier: "无门槛", rules: [{ h: "12h", t: "营业时间免费停车" }], lng: null, lat: null, approx: false },
-{ id: 36, name: "金桥国际商业广场", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "会员任意消费积分免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 37, name: "前滩源", district: "浦东新区", tier: "无门槛", rules: [{ h: "3h", t: "会员任意消费积分免费4小时" }], lng: null, lat: null, approx: false },
-{ id: 38, name: "世博源", district: "浦东新区", tier: "无门槛", rules: [{ h: "1h", t: "会员首2小时免费停车，任意消费2小时" }], lng: null, lat: null, approx: false },
-{ id: 39, name: "第一八佰伴", district: "浦东新区", tier: "无门槛", rules: [{ h: "24h", t: "新注册会员24小时停车券1张" }], lng: null, lat: null, approx: false },
-{ id: 40, name: "浦发时光里", district: "浦东新区", tier: "无门槛", rules: [{ h: "8h", t: "免费6小时" }], lng: null, lat: null, approx: false },
-{ id: 41, name: "盈丰天地", district: "浦东新区", tier: "需消费", rules: [{ h: "3h", t: "消费满50免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 42, name: "IFC国金中心", district: "浦东新区", tier: "需消费", rules: [{ h: "1h", t: "会员免费、消费满300元" }], lng: null, lat: null, approx: false },
-{ id: 43, name: "环球金融中心", district: "浦东新区", tier: "需消费", rules: [{ h: "3h", t: "周末/节假日单笔100元" }], lng: null, lat: null, approx: false },
-{ id: 44, name: "前滩太古里", district: "浦东新区", tier: "需消费", rules: [{ h: "1h", t: "周末及节假日累积消费满300元" }], lng: null, lat: null, approx: false },
-{ id: 45, name: "山姆外高桥店", district: "浦东新区", tier: "需消费", rules: [{ h: "3h", t: "免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 46, name: "比斯特购物村", district: "浦东新区", tier: "需消费", rules: [{ h: "5h", t: "消费满50免费5小时" }], lng: null, lat: null, approx: false },
-/* ---------- 闵行区 ---------- */
-{ id: 47, name: "莘庄缇璟印象城", district: "闵行区", tier: "无门槛", rules: [{ h: "1h", t: "会员每日领券1h" }], lng: null, lat: null, approx: false },
-{ id: 48, name: "浦江生活广场", district: "闵行区", tier: "无门槛", rules: [{ h: "2h", t: "新会员绑定车牌" }], lng: null, lat: null, approx: false },
-{ id: 49, name: "天荟", district: "闵行区", tier: "无门槛", rules: [{ h: "3h", t: "会员任意消费并积分免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 50, name: "力波九坊", district: "闵行区", tier: "无门槛", rules: [{ h: "3h", t: "地下停车场免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 51, name: "古北1699商场", district: "闵行区", tier: "无门槛", rules: [{ h: "2h", t: "普通店铺消费10元、生鲜超市58元" }], lng: null, lat: null, approx: false },
-{ id: 52, name: "衡园莘光里", district: "闵行区", tier: "无门槛", rules: [{ h: "1h", t: "首小时免费" }], lng: null, lat: null, approx: false },
-{ id: 53, name: "红象汇", district: "闵行区", tier: "无门槛", rules: [{ h: "3h", t: "免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 54, name: "白金汉爵大酒店", district: "闵行区", tier: "无门槛", rules: [{ h: "1h", t: "免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 55, name: "中庚漫游城", district: "闵行区", tier: "无门槛", rules: [{ h: "2h", t: "新会员送2h、周一到四18:00~22:00" }], lng: null, lat: null, approx: false },
-{ id: 56, name: "莲花国际广场", district: "闵行区", tier: "无门槛", rules: [{ h: "1h", t: "会员每日1h，200积分兑换1h" }], lng: null, lat: null, approx: false },
-{ id: 57, name: "红星欧丽", district: "闵行区", tier: "无门槛", rules: [{ h: "3h", t: "会员免费3小时（会员1小时）" }], lng: null, lat: null, approx: false },
-{ id: 58, name: "集颛桥", district: "闵行区", tier: "无门槛", rules: [{ h: "1h", t: "工作日会员1小时" }], lng: null, lat: null, approx: false },
-{ id: 59, name: "合川利邻荟", district: "闵行区", tier: "无门槛", rules: [{ h: "2h", t: "餐饮娱乐服务商户内任意消费领取" }], lng: null, lat: null, approx: false },
-{ id: 60, name: "剪刀石头布家居广场", district: "闵行区", tier: "无门槛", rules: [{ h: "10h", t: "10:00-20:00免费停车" }], lng: null, lat: null, approx: false },
-{ id: 61, name: "仲盛世界商城", district: "闵行区", tier: "无门槛", rules: [{ h: "3h", t: "周一到周四任意消费并积分免费3h" }], lng: null, lat: null, approx: false },
-{ id: 62, name: "浦江欢乐颂", district: "闵行区", tier: "无门槛", rules: [{ h: "2h", t: "会员积分卡免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 63, name: "海梦一方", district: "闵行区", tier: "无门槛", rules: [{ h: "3h", t: "节假日除外，工作日任意消费免费3h" }], lng: null, lat: null, approx: false },
-{ id: 64, name: "日月光中心", district: "闵行区", tier: "无门槛", rules: [{ h: "2h", t: "免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 65, name: "PJC平金中心", district: "闵行区", tier: "无门槛", rules: [{ h: "1h", t: "会员免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 66, name: "绚荟城", district: "闵行区", tier: "无门槛", rules: [{ h: "1h", t: "注册会员送1h、任意消费免费1h" }], lng: null, lat: null, approx: false },
-{ id: 67, name: "弘基广场", district: "闵行区", tier: "无门槛", rules: [{ h: "3h", t: "免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 68, name: "虹桥前湾印象城", district: "闵行区", tier: "无门槛", rules: [{ h: "4h", t: "周末任意消费免费4小时" }], lng: null, lat: null, approx: false },
-{ id: 69, name: "置业梦享家", district: "闵行区", tier: "无门槛", rules: [{ h: "3h", t: "免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 70, name: "诺瓦城NOVA ARK", district: "闵行区", tier: "无门槛", rules: [{ h: "2h", t: "任意消费并积分免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 71, name: "山纲和润会", district: "闵行区", tier: "无门槛", rules: [{ h: "2h", t: "会员免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 72, name: "莘庄龙之梦", district: "闵行区", tier: "无门槛", rules: [{ h: "5h", t: "会员19:00~23:59免费停车5小时" }], lng: null, lat: null, approx: false },
-{ id: 73, name: "七宝嘉寰广场", district: "闵行区", tier: "无门槛", rules: [{ h: "2h", t: "会员任意消费免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 74, name: "爱琴海购物中心", district: "闵行区", tier: "无门槛", rules: [{ h: "2h", t: "任意消费积分免费2小时" }], lng: null, lat: null, approx: false },
-/* ---------- 杨浦区 ---------- */
-{ id: 75, name: "上海国际时尚中心", district: "杨浦区", tier: "无门槛", rules: [{ h: "1h", t: "注册会员后每天免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 76, name: "国华广场", district: "杨浦区", tier: "无门槛", rules: [{ h: "2h", t: "新会员送2小时，任意消费积分1h" }], lng: null, lat: null, approx: false },
-{ id: 77, name: "紫荆广场", district: "杨浦区", tier: "无门槛", rules: [{ h: "1h", t: "会员首小时免费" }], lng: null, lat: null, approx: false },
-{ id: 78, name: "东方渔人码头", district: "杨浦区", tier: "无门槛", rules: [{ h: "3h", t: "新会员送300积分，100积分/h" }, { h: "5h", t: "开通微信无感送500积分" }], lng: null, lat: null, approx: false },
-{ id: 79, name: "五角场创智天地", district: "杨浦区", tier: "无门槛", rules: [{ h: "1h", t: "新会员任意消费送450积分，300/1h；加企业微信认证，周一到周四1h券" }], lng: null, lat: null, approx: false },
-{ id: 80, name: "宝龙旭辉广场", district: "杨浦区", tier: "无门槛", rules: [{ h: "1h", t: "会员免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 81, name: "合生汇", district: "杨浦区", tier: "需消费", rules: [{ h: "1h", t: "新会员送500积分，1小时免费" }], lng: null, lat: null, approx: false },
-{ id: 82, name: "悠方购物中心", district: "杨浦区", tier: "需消费", rules: [{ h: "1h", t: "银卡200积分、金卡200积分2h、黑卡3h" }], lng: null, lat: null, approx: false },
-/* ---------- 青浦区 ---------- */
-{ id: 83, name: "百联青浦奥特莱斯", district: "青浦区", tier: "无门槛", rules: [{ h: "24h", t: "免费停车" }], lng: null, lat: null, approx: false },
-{ id: 84, name: "青浦吾悦广场", district: "青浦区", tier: "无门槛", rules: [{ h: "1h", t: "新会员1h/盒马消费免费2h叠加" }], lng: null, lat: null, approx: false },
-{ id: 85, name: "青浦东渡蛙城", district: "青浦区", tier: "无门槛", rules: [{ h: "2h", t: "任意消费免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 86, name: "蟠龙天地", district: "青浦区", tier: "无门槛", rules: [{ h: "2h", t: "迪丰工厂店" }], lng: null, lat: null, approx: false },
-{ id: 87, name: "元祖梦世界", district: "青浦区", tier: "无门槛", rules: [{ h: "3h", t: "免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 88, name: "绿洲智谷·花园里", district: "青浦区", tier: "无门槛", rules: [{ h: "4h", t: "会员工作日免费4小时" }, { h: "8h", t: "周末及节假日免费4小时" }], lng: null, lat: null, approx: false },
-{ id: 89, name: "万科天空之城广场", district: "青浦区", tier: "需消费", rules: [{ h: "1h", t: "新会员单笔消费满100、金卡" }], lng: null, lat: null, approx: false },
-{ id: 90, name: "青浦宝龙广场", district: "青浦区", tier: "需消费", rules: [{ h: "2h", t: "永辉超市消费满58元" }], lng: null, lat: null, approx: false },
-/* ---------- 长宁区 ---------- */
-{ id: 91, name: "上生新所", district: "长宁区", tier: "无门槛", rules: [{ h: "1h", t: "新会员送200积分，200积分兑换1h" }], lng: null, lat: null, approx: false },
-{ id: 92, name: "Art Park大融城", district: "长宁区", tier: "无门槛", rules: [{ h: "3h", t: "会员任意消费免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 93, name: "尚嘉中心", district: "长宁区", tier: "无门槛", rules: [{ h: "3h", t: "会员周末任意消费积分，免费3h" }], lng: null, lat: null, approx: false },
-{ id: 94, name: "Livat荟聚", district: "长宁区", tier: "无门槛", rules: [{ h: "3h", t: "会员任意消费免费3小时" }, { h: "1h", t: "双会员周末首小时免费" }], lng: null, lat: null, approx: false },
-{ id: 95, name: "又又中心", district: "长宁区", tier: "无门槛", rules: [{ h: "2h", t: "新会员消费送300积分，150积分兑1h" }], lng: null, lat: null, approx: false },
-{ id: 96, name: "缤谷广场", district: "长宁区", tier: "无门槛", rules: [{ h: "2h", t: "新注册联名会员全天免费停车券1张；工作日任意消费免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 97, name: "百联西郊购物中心", district: "长宁区", tier: "无门槛", rules: [{ h: "3h", t: "会员免费3小时" }, { h: "3h", t: "工作日任意消费积分免费3小时" }, { h: "2h", t: "周末节假日任意消费积分免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 98, name: "东虹桥中心", district: "长宁区", tier: "无门槛", rules: [{ h: "3h", t: "荟品仓任意消费免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 99, name: "晶耀虹桥", district: "长宁区", tier: "无门槛", rules: [{ h: "3h", t: "会员免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 100, name: "天山百盛优客", district: "长宁区", tier: "需消费", rules: [{ h: "1h", t: "消费满200元兑换1小时免费停车；300元免2小时，400元免3小时，500元免4小时，600元免5小时" }], lng: null, lat: null, approx: false },
-/* ---------- 黄浦区 ---------- */
-{ id: 101, name: "人广来福士", district: "黄浦区", tier: "无门槛", rules: [{ h: "1h", t: "工作日18:00餐饮类任意消费免1h" }], lng: null, lat: null, approx: false },
-{ id: 102, name: "恒基旭辉天地", district: "黄浦区", tier: "无门槛", rules: [{ h: "1h", t: "新会员送100积分，100积分免费1h" }], lng: null, lat: null, approx: false },
-{ id: 103, name: "上海时代广场", district: "黄浦区", tier: "无门槛", rules: [{ h: "2h", t: "工作日19时后、周末任意消费积分免费2h" }], lng: null, lat: null, approx: false },
-{ id: 104, name: "力宝广场", district: "黄浦区", tier: "无门槛", rules: [{ h: "2h", t: "周末任意消费服务台办理免费2h" }], lng: null, lat: null, approx: false },
-{ id: 105, name: "博荟广场", district: "黄浦区", tier: "需消费", rules: [{ h: "4h", t: "周末当日累计消费满128元并成功积分" }, { h: "1h", t: "会员300积分/电影票票根并成功积分" }], lng: null, lat: null, approx: false },
-{ id: 106, name: "中环广场", district: "黄浦区", tier: "需消费", rules: [{ h: "1h", t: "消费满200元免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 107, name: "新天地湖滨道", district: "黄浦区", tier: "需消费", rules: [{ h: "3h", t: "周末消费88免费3h，工作日199/3h" }], lng: null, lat: null, approx: false },
-{ id: 108, name: "无限极荟", district: "黄浦区", tier: "需消费", rules: [{ h: "3h", t: "周末满99元消费积分免费3h" }], lng: null, lat: null, approx: false },
-{ id: 109, name: "大丸百货", district: "黄浦区", tier: "需消费", rules: [{ h: "3h", t: "金卡会员免费停3小时每月" }], lng: null, lat: null, approx: false },
-{ id: 110, name: "中海环宇荟", district: "黄浦区", tier: "需消费", rules: [{ h: "1h", t: "单笔消费满100享1h，300积分享2h" }], lng: null, lat: null, approx: false },
-/* ---------- 嘉定区 ---------- */
-{ id: 111, name: "嘉定月光", district: "嘉定区", tier: "无门槛", rules: [{ h: "2h", t: "凭当日任意小票免费停车2小时" }], lng: null, lat: null, approx: false },
-{ id: 112, name: "吉宝绿地缤纷城", district: "嘉定区", tier: "无门槛", rules: [{ h: "4h", t: "会员免费2h，非会员1h，电影票4h" }], lng: null, lat: null, approx: false },
-{ id: 113, name: "保利悦活城", district: "嘉定区", tier: "无门槛", rules: [{ h: "2h", t: "免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 114, name: "花都荟", district: "嘉定区", tier: "无门槛", rules: [{ h: "2h", t: "周末及节假日1h，工作日3h" }], lng: null, lat: null, approx: false },
-{ id: 115, name: "南翔印象城MEGA", district: "嘉定区", tier: "无门槛", rules: [{ h: "2h", t: "金卡会员2h，300积分1h，最高抵扣2h" }], lng: null, lat: null, approx: false },
-{ id: 116, name: "信业购物中心", district: "嘉定区", tier: "无门槛", rules: [{ h: "1h", t: "新注册送500积分，200积分兑换1h" }], lng: null, lat: null, approx: false },
-{ id: 117, name: "嘉亭荟", district: "嘉定区", tier: "无门槛", rules: [{ h: "3h", t: "新会员1h/首次微信支付并积分2h" }], lng: null, lat: null, approx: false },
-{ id: 118, name: "西云楼", district: "嘉定区", tier: "无门槛", rules: [{ h: "2h", t: "免费2h" }], lng: null, lat: null, approx: false },
-{ id: 119, name: "TSF购物中心", district: "嘉定区", tier: "无门槛", rules: [{ h: "3h", t: "前台登记免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 120, name: "大橘邻里", district: "嘉定区", tier: "无门槛", rules: [{ h: "2h", t: "免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 121, name: "华泰中心", district: "嘉定区", tier: "无门槛", rules: [{ h: "2h", t: "免费2小时，10积分兑换1小时" }], lng: null, lat: null, approx: false },
-{ id: 122, name: "山姆嘉定店", district: "嘉定区", tier: "需消费", rules: [{ h: "2h", t: "消费满50元免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 123, name: "嘉定大融城", district: "嘉定区", tier: "需消费", rules: [{ h: "2h", t: "消费满28元免费2小时" }], lng: null, lat: null, approx: false },
-/* ---------- 虹口区 ---------- */
-{ id: 124, name: "瑞虹天地", district: "虹口区", tier: "无门槛", rules: [{ h: "1h", t: "太阳宫、月亮湾周一到周四" }, { h: "5h", t: "月亮湾21:00到2:00免费停车" }], lng: null, lat: null, approx: false },
-{ id: 125, name: "利通广场", district: "虹口区", tier: "无门槛", rules: [{ h: "2h", t: "任意消费工作日免费1h，周末免费2h" }], lng: null, lat: null, approx: false },
-{ id: 126, name: "今雨荟", district: "虹口区", tier: "无门槛", rules: [{ h: "4h", t: "新注册免费2h，200积分兑换1h；任意消费并积分免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 127, name: "虹口龙之梦", district: "虹口区", tier: "需消费", rules: [{ h: "4h", t: "600积分兑换3小时停车" }], lng: null, lat: null, approx: false },
-{ id: 128, name: "友邦金融中心", district: "虹口区", tier: "需消费", rules: [{ h: "1h", t: "会员消费满50元免费1h，100积分1h" }], lng: null, lat: null, approx: false },
-/* ---------- 静安区 ---------- */
-{ id: 129, name: "嘉里合集", district: "静安区", tier: "无门槛", rules: [{ h: "8h", t: "节假日任意消费" }, { h: "1h", t: "累积消费50元免费1h，80元2h，100元3h" }], lng: null, lat: null, approx: false },
-{ id: 130, name: "MOHO MALL", district: "静安区", tier: "无门槛", rules: [{ h: "5h", t: "任意指定消费工作日免费3h，周末节假日5h" }], lng: null, lat: null, approx: false },
-{ id: 131, name: "苏河湾万象天地", district: "静安区", tier: "无门槛", rules: [{ h: "1h", t: "会员注册1小时免费停车，生日免费停车" }], lng: null, lat: null, approx: false },
-{ id: 132, name: "静安大融城", district: "静安区", tier: "无门槛", rules: [{ h: "1h", t: "会员周一到周四在小程序领" }], lng: null, lat: null, approx: false },
-{ id: 133, name: "静安国际中心", district: "静安区", tier: "无门槛", rules: [{ h: "1h", t: "会员免费1小时，200积分兑换1小时" }], lng: null, lat: null, approx: false },
-{ id: 134, name: "协信星光广场", district: "静安区", tier: "无门槛", rules: [{ h: "2h", t: "任意消费免费2h" }], lng: null, lat: null, approx: false },
-{ id: 135, name: "悦达889商场", district: "静安区", tier: "无门槛", rules: [{ h: "2h", t: "新会员送200积分，100积分免1h" }], lng: null, lat: null, approx: false },
-{ id: 136, name: "兴业太古汇", district: "静安区", tier: "无门槛", rules: [{ h: "1h", t: "会员任意消费积分免费1h" }], lng: null, lat: null, approx: false },
-{ id: 137, name: "丰盛商业中心", district: "静安区", tier: "无门槛", rules: [{ h: "1h", t: "任意消费服务台兑换免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 138, name: "嘉禾中心", district: "静安区", tier: "无门槛", rules: [{ h: "4h", t: "工作日18~22时任意消费免费停车" }, { h: "1h", t: "周末10~22时任意消费免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 139, name: "静安大宁时光里", district: "静安区", tier: "无门槛", rules: [{ h: "24h", t: "全天免费停车" }], lng: null, lat: null, approx: false },
-{ id: 140, name: "锦沧文华", district: "静安区", tier: "需消费", rules: [{ h: "3h", t: "单笔消费满299元免费3h" }], lng: null, lat: null, approx: false },
-{ id: 141, name: "中信泰富", district: "静安区", tier: "需消费", rules: [{ h: "4h", t: "会员单笔消费满300/19:00~01:00指定餐饮" }], lng: null, lat: null, approx: false },
-{ id: 142, name: "太古汇", district: "静安区", tier: "需消费", rules: [{ h: "2h", t: "充电10分钟/1000积分千寻卡" }], lng: null, lat: null, approx: false },
-{ id: 143, name: "大宁久光", district: "静安区", tier: "需消费", rules: [{ h: "1h", t: "消费满300元可以抵扣1h" }], lng: null, lat: null, approx: false },
-{ id: 144, name: "上海利园", district: "静安区", tier: "需消费", rules: [{ h: "2h", t: "工作日消费满50元" }, { h: "4h", t: "周末节假日消费满200元免" }], lng: null, lat: null, approx: false },
-/* ---------- 徐汇区 ---------- */
-{ id: 145, name: "ITC国汇茂", district: "徐汇区", tier: "无门槛", rules: [{ h: "1h", t: "20:00后任意消费免费1h" }], lng: null, lat: null, approx: false },
-{ id: 146, name: "绿地缤纷城", district: "徐汇区", tier: "无门槛", rules: [{ h: "2h", t: "新会员送100积分" }], lng: null, lat: null, approx: false },
-{ id: 147, name: "漕河泾印象城", district: "徐汇区", tier: "无门槛", rules: [{ h: "2h", t: "工作日18:00后/周末任意消费积分" }], lng: null, lat: null, approx: false },
-{ id: 148, name: "凌云天地", district: "徐汇区", tier: "无门槛", rules: [{ h: "1h", t: "免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 149, name: "中星城", district: "徐汇区", tier: "无门槛", rules: [{ h: "2h", t: "荟品仓任意消费免1h，满158元免2h" }], lng: null, lat: null, approx: false },
-{ id: 150, name: "云锦天地", district: "徐汇区", tier: "无门槛", rules: [{ h: "1h", t: "会员免费停车1小时" }], lng: null, lat: null, approx: false },
-{ id: 151, name: "漕河泾M+", district: "徐汇区", tier: "无门槛", rules: [{ h: "24h", t: "开业免费停车" }], lng: null, lat: null, approx: false },
-{ id: 152, name: "徐汇宜家", district: "徐汇区", tier: "无门槛", rules: [{ h: "3h", t: "任意消费周一~周四免3h，周五4h" }, { h: "1h", t: "周末免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 153, name: "FFC滨江悦里", district: "徐汇区", tier: "无门槛", rules: [{ h: "24h", t: "开业免费" }], lng: null, lat: null, approx: false },
-{ id: 154, name: "徐汇月光", district: "徐汇区", tier: "无门槛", rules: [{ h: "2h", t: "新会员注册免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 155, name: "西岸中环", district: "徐汇区", tier: "无门槛", rules: [{ h: "2h", t: "任意消费积分免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 156, name: "尚湾里", district: "徐汇区", tier: "需消费", rules: [{ h: "3h", t: "消费满19.9元免费2小时" }], lng: null, lat: null, approx: false },
-/* ---------- 松江区 ---------- */
-{ id: 157, name: "东鼎购物中心", district: "松江区", tier: "无门槛", rules: [{ h: "0.5h", t: "免费" }], lng: null, lat: null, approx: false },
-{ id: 158, name: "乐尚天地生活广场", district: "松江区", tier: "无门槛", rules: [{ h: "2h", t: "免费" }], lng: null, lat: null, approx: false },
-{ id: 159, name: "云间粮仓", district: "松江区", tier: "无门槛", rules: [{ h: "2h", t: "免费" }], lng: null, lat: null, approx: false },
-{ id: 160, name: "亚乐城", district: "松江区", tier: "无门槛", rules: [{ h: "3h", t: "会员免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 161, name: "佘山旭辉里", district: "松江区", tier: "无门槛", rules: [{ h: "6h", t: "50积分免费6小时" }], lng: null, lat: null, approx: false },
-/* ---------- 普陀区 ---------- */
-{ id: 162, name: "信泰中心", district: "普陀区", tier: "无门槛", rules: [{ h: "4h", t: "周末及节假日1积分兑换免费4h" }, { h: "2h", t: "新注册免费/工作日任意消费" }], lng: null, lat: null, approx: false },
-{ id: 163, name: "近铁城市广场南区", district: "普陀区", tier: "无门槛", rules: [{ h: "2h", t: "工作日18点后/周末任意消费" }], lng: null, lat: null, approx: false },
-{ id: 164, name: "山姆真如店", district: "普陀区", tier: "无门槛", rules: [{ h: "2h", t: "消费满100免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 165, name: "桃浦湾TOP ONE", district: "普陀区", tier: "无门槛", rules: [{ h: "4h", t: "提前注册，周末免费，工作日消费59" }], lng: null, lat: null, approx: false },
-{ id: 166, name: "长风大悦城", district: "普陀区", tier: "无门槛", rules: [{ h: "限时", t: "20:00~3:00免费停车" }], lng: null, lat: null, approx: false },
-{ id: 167, name: "鸿寿坊", district: "普陀区", tier: "无门槛", rules: [{ h: "2h", t: "注册并消费送450积分，200积分兑1h" }], lng: null, lat: null, approx: false },
-{ id: 168, name: "118广场", district: "普陀区", tier: "无门槛", rules: [{ h: "4h", t: "新会员送800积分，200积分兑换1h" }], lng: null, lat: null, approx: false },
-{ id: 169, name: "红星美凯龙真北路", district: "普陀区", tier: "无门槛", rules: [{ h: "1h", t: "会员免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 170, name: "真如环宇城MAX", district: "普陀区", tier: "无门槛", rules: [{ h: "1h", t: "会员免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 171, name: "桃浦TOP金光汇", district: "普陀区", tier: "无门槛", rules: [{ h: "3h", t: "会员凭当日任意消费3小时停车券；周一至周五免费3小时(10:00-21:30)；周六/周日免费2小时(10:00-21:30)" }], lng: null, lat: null, approx: false },
-{ id: 172, name: "星邻·生活荟", district: "普陀区", tier: "无门槛", rules: [{ h: "2h", t: "注册送100积分，100积分兑换1h；工作日免费1小时，周末免费2h" }], lng: null, lat: null, approx: false },
-{ id: 173, name: "金环广场", district: "普陀区", tier: "无门槛", rules: [{ h: "4h", t: "免费4h" }], lng: null, lat: null, approx: false },
-{ id: 174, name: "长风via", district: "普陀区", tier: "需消费", rules: [{ h: "4h", t: "周末及节假日消费满39" }, { h: "2h", t: "工作日消费满39元" }], lng: null, lat: null, approx: false },
-/* ---------- 宝山区 ---------- */
-{ id: 175, name: "宝山经纬汇", district: "宝山区", tier: "无门槛", rules: [{ h: "3h", t: "任意消费积分免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 176, name: "定海神针观光塔", district: "宝山区", tier: "无门槛", rules: [{ h: "5h", t: "免费5小时" }], lng: null, lat: null, approx: false },
-{ id: 177, name: "大华老镇嘉年华", district: "宝山区", tier: "无门槛", rules: [{ h: "2h", t: "会员任意消费" }], lng: null, lat: null, approx: false },
-{ id: 178, name: "宝山月光", district: "宝山区", tier: "无门槛", rules: [{ h: "6h", t: "工作日任意消费积分" }, { h: "2h", t: "周末节假日指定商户消费" }], lng: null, lat: null, approx: false },
-{ id: 179, name: "翼生活广场", district: "宝山区", tier: "无门槛", rules: [{ h: "1h", t: "免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 180, name: "大华虎城中心", district: "宝山区", tier: "无门槛", rules: [{ h: "2h", t: "新会员" }], lng: null, lat: null, approx: false },
-{ id: 181, name: "世华1956广场", district: "宝山区", tier: "无门槛", rules: [{ h: "1h", t: "免费1小时" }], lng: null, lat: null, approx: false },
-{ id: 182, name: "海上世界", district: "宝山区", tier: "无门槛", rules: [{ h: "3h", t: "会员免费3小时" }], lng: null, lat: null, approx: false },
-{ id: 183, name: "金富门Park1287", district: "宝山区", tier: "无门槛", rules: [{ h: "24h", t: "新开业免费" }], lng: null, lat: null, approx: false },
-{ id: 184, name: "山姆聚丰广场", district: "宝山区", tier: "需消费", rules: [{ h: "2h", t: "消费满50免费2小时" }], lng: null, lat: null, approx: false },
-{ id: 185, name: "中集金地广场", district: "宝山区", tier: "需消费", rules: [{ h: "2h", t: "盒马消费满88免停2小时；快充15分钟免费2小时，不叠加" }], lng: null, lat: null, approx: false }
+ {
+  "id": 1,
+  "name": "陆家嘴尚悦湾",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "周末节假日"
+   }
+  ],
+  "lng": 121.510217,
+  "lat": 31.240875,
+  "approx": false
+ },
+ {
+  "id": 2,
+  "name": "富荟广场",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "会员免费"
+   }
+  ],
+  "lng": 121.545519,
+  "lat": 31.204335,
+  "approx": false
+ },
+ {
+  "id": 3,
+  "name": "北蔡宜家",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员免费"
+   }
+  ],
+  "lng": 121.562184,
+  "lat": 31.159772,
+  "approx": false
+ },
+ {
+  "id": 4,
+  "name": "老船厂1862",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "周末节假日3h"
+   },
+   {
+    "h": "1h",
+    "t": "工作日消费满68换1h，客服台核销"
+   }
+  ],
+  "lng": 121.514101,
+  "lat": 31.244345,
+  "approx": false
+ },
+ {
+  "id": 5,
+  "name": "金谊广场",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "会员"
+   }
+  ],
+  "lng": 121.513315,
+  "lat": 31.140812,
+  "approx": false
+ },
+ {
+  "id": 6,
+  "name": "丁香国际",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "周末节假日、100积分"
+   }
+  ],
+  "lng": 121.550969,
+  "lat": 31.225151,
+  "approx": false
+ },
+ {
+  "id": 7,
+  "name": "万嘉广场",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "公众号领券，每天领1次"
+   }
+  ],
+  "lng": 121.610741,
+  "lat": 31.293532,
+  "approx": false
+ },
+ {
+  "id": 8,
+  "name": "麦德龙（浦东店）",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "任意消费免费2小时"
+   }
+  ],
+  "lng": 121.557188,
+  "lat": 31.204958,
+  "approx": false
+ },
+ {
+  "id": 9,
+  "name": "唐镇阳光天地",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "周末节假日免费1小时"
+   }
+  ],
+  "lng": 121.656053,
+  "lat": 31.214472,
+  "approx": false
+ },
+ {
+  "id": 10,
+  "name": "山姆高科西路店",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "免费2小时"
+   }
+  ],
+  "lng": 121.535231,
+  "lat": 31.186563,
+  "approx": false
+ },
+ {
+  "id": 11,
+  "name": "佛罗伦萨小镇",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "5h",
+    "t": "会员免费5小时"
+   }
+  ],
+  "lng": 121.764356,
+  "lat": 31.195953,
+  "approx": false
+ },
+ {
+  "id": 12,
+  "name": "东方懿德城",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "6h",
+    "t": "免费6小时"
+   }
+  ],
+  "lng": 121.506657,
+  "lat": 31.126294,
+  "approx": false
+ },
+ {
+  "id": 13,
+  "name": "花木陆悦坊",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "注册会员送200积分，50积分免费1h"
+   }
+  ],
+  "lng": 121.536398,
+  "lat": 31.208813,
+  "approx": false
+ },
+ {
+  "id": 14,
+  "name": "前滩陆悦汇",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "周末节假日任意餐饮零售/工作日任意消费免费2h"
+   }
+  ],
+  "lng": 121.481623,
+  "lat": 31.159078,
+  "approx": false
+ },
+ {
+  "id": 15,
+  "name": "Costco浦东店",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员消费免费3h"
+   }
+  ],
+  "lng": 121.616852,
+  "lat": 31.131619,
+  "approx": false
+ },
+ {
+  "id": 16,
+  "name": "花木时光里",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员免费1h，新会员送100积分，30积分兑换1h（上限2h）"
+   }
+  ],
+  "lng": 121.537883,
+  "lat": 31.218554,
+  "approx": false
+ },
+ {
+  "id": 17,
+  "name": "航头浦乐汇",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员免费3小时"
+   }
+  ],
+  "lng": 121.593058,
+  "lat": 31.077818,
+  "approx": false
+ },
+ {
+  "id": 18,
+  "name": "川沙九六广场",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "6h",
+    "t": "会员领2个3小时停车券"
+   }
+  ],
+  "lng": 121.700707,
+  "lat": 31.178931,
+  "approx": false
+ },
+ {
+  "id": 19,
+  "name": "世博天地",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "5h",
+    "t": "首3小时免费，会员每日免费2小时"
+   }
+  ],
+  "lng": 121.489442,
+  "lat": 31.184951,
+  "approx": false
+ },
+ {
+  "id": 20,
+  "name": "亿丰时代广场",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "关注微信公众号免费2h，消费满66元领2h停车券"
+   }
+  ],
+  "lng": 121.507269,
+  "lat": 31.163012,
+  "approx": false
+ },
+ {
+  "id": 21,
+  "name": "陆悦天地",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员任意消费并积分免费3小时"
+   }
+  ],
+  "lng": 121.615618,
+  "lat": 31.182888,
+  "approx": false
+ },
+ {
+  "id": 22,
+  "name": "前滩L+plaza",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "会员周末及节假日免费4小时"
+   }
+  ],
+  "lng": 121.482277,
+  "lat": 31.156185,
+  "approx": false
+ },
+ {
+  "id": 23,
+  "name": "祝桥天和广场",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "会员免费2小时"
+   }
+  ],
+  "lng": 121.761672,
+  "lat": 31.116604,
+  "approx": false
+ },
+ {
+  "id": 24,
+  "name": "惠南禹悦汇",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "会员免费2小时"
+   }
+  ],
+  "lng": 121.738759,
+  "lat": 31.03948,
+  "approx": false
+ },
+ {
+  "id": 25,
+  "name": "世纪汇",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员注册加绑定无感支付1300积分，300积分免费1h"
+   }
+  ],
+  "lng": 121.52719,
+  "lat": 31.227446,
+  "approx": false
+ },
+ {
+  "id": 26,
+  "name": "浦发唐城天地",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "6h",
+    "t": "会员任意消费并集星免费6小时"
+   }
+  ],
+  "lng": 121.673917,
+  "lat": 31.212485,
+  "approx": false
+ },
+ {
+  "id": 27,
+  "name": "张江大桶天地",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "免费3小时"
+   }
+  ],
+  "lng": 121.587932,
+  "lat": 31.204837,
+  "approx": true
+ },
+ {
+  "id": 28,
+  "name": "新环广场",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "免费3小时"
+   }
+  ],
+  "lng": 121.636842,
+  "lat": 31.030409,
+  "approx": false
+ },
+ {
+  "id": 29,
+  "name": "EKA天物",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "周一到周五免费2小时，周末消费满99元免费2h"
+   }
+  ],
+  "lng": 121.576737,
+  "lat": 31.263741,
+  "approx": false
+ },
+ {
+  "id": 30,
+  "name": "浦发唐镇印象汇",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "6h",
+    "t": "任意消费免费6小时"
+   }
+  ],
+  "lng": 121.670025,
+  "lat": 31.227741,
+  "approx": false
+ },
+ {
+  "id": 31,
+  "name": "前滩公园巷",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员免费3小时"
+   }
+  ],
+  "lng": 121.474594,
+  "lat": 31.152852,
+  "approx": false
+ },
+ {
+  "id": 32,
+  "name": "慧华里",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "免费3小时"
+   }
+  ],
+  "lng": 121.527779,
+  "lat": 31.194727,
+  "approx": false
+ },
+ {
+  "id": 33,
+  "name": "金桥月光",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "12:00-13:00、18:00-19:00 免费1小时"
+   }
+  ],
+  "lng": 121.608384,
+  "lat": 31.278768,
+  "approx": false
+ },
+ {
+  "id": 34,
+  "name": "御桥九六广场",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "6h",
+    "t": "免费6小时"
+   }
+  ],
+  "lng": 121.554219,
+  "lat": 31.155708,
+  "approx": false
+ },
+ {
+  "id": 35,
+  "name": "美达广场",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "12h",
+    "t": "营业时间免费停车"
+   }
+  ],
+  "lng": 121.766289,
+  "lat": 31.196494,
+  "approx": false
+ },
+ {
+  "id": 36,
+  "name": "金桥国际商业广场",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员任意消费积分免费3小时"
+   }
+  ],
+  "lng": 121.57947,
+  "lat": 31.255737,
+  "approx": false
+ },
+ {
+  "id": 37,
+  "name": "前滩源",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员任意消费积分免费4小时"
+   }
+  ],
+  "lng": 121.474179,
+  "lat": 31.160219,
+  "approx": false
+ },
+ {
+  "id": 38,
+  "name": "世博源",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员首2小时免费停车，任意消费2小时"
+   }
+  ],
+  "lng": 121.492654,
+  "lat": 31.183285,
+  "approx": false
+ },
+ {
+  "id": 39,
+  "name": "第一八佰伴",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "24h",
+    "t": "新注册会员24小时停车券1张"
+   }
+  ],
+  "lng": 121.516925,
+  "lat": 31.228205,
+  "approx": false
+ },
+ {
+  "id": 40,
+  "name": "浦发时光里",
+  "district": "浦东新区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "8h",
+    "t": "免费6小时"
+   }
+  ],
+  "lng": 121.539263,
+  "lat": 31.149041,
+  "approx": false
+ },
+ {
+  "id": 41,
+  "name": "盈丰天地",
+  "district": "浦东新区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "消费满50免费3小时"
+   }
+  ],
+  "lng": 121.561858,
+  "lat": 31.204857,
+  "approx": false
+ },
+ {
+  "id": 42,
+  "name": "IFC国金中心",
+  "district": "浦东新区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员免费、消费满300元"
+   }
+  ],
+  "lng": 121.502326,
+  "lat": 31.236165,
+  "approx": false
+ },
+ {
+  "id": 43,
+  "name": "环球金融中心",
+  "district": "浦东新区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "周末/节假日单笔100元"
+   }
+  ],
+  "lng": 121.50776,
+  "lat": 31.234293,
+  "approx": false
+ },
+ {
+  "id": 44,
+  "name": "前滩太古里",
+  "district": "浦东新区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "周末及节假日累积消费满300元"
+   }
+  ],
+  "lng": 121.481489,
+  "lat": 31.152823,
+  "approx": false
+ },
+ {
+  "id": 45,
+  "name": "山姆外高桥店",
+  "district": "浦东新区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "免费3小时"
+   }
+  ],
+  "lng": 121.61711,
+  "lat": 31.296858,
+  "approx": false
+ },
+ {
+  "id": 46,
+  "name": "比斯特购物村",
+  "district": "浦东新区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "5h",
+    "t": "消费满50免费5小时"
+   }
+  ],
+  "lng": 121.679498,
+  "lat": 31.140497,
+  "approx": false
+ },
+ {
+  "id": 47,
+  "name": "莘庄缇璟印象城",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员每日领券1h"
+   }
+  ],
+  "lng": 121.363789,
+  "lat": 31.130911,
+  "approx": false
+ },
+ {
+  "id": 48,
+  "name": "浦江生活广场",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "新会员绑定车牌"
+   }
+  ],
+  "lng": 121.505064,
+  "lat": 31.083398,
+  "approx": false
+ },
+ {
+  "id": 49,
+  "name": "天荟",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员任意消费并积分免费3小时"
+   }
+  ],
+  "lng": 121.386461,
+  "lat": 31.111364,
+  "approx": false
+ },
+ {
+  "id": 50,
+  "name": "力波九坊",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "地下停车场免费3小时"
+   }
+  ],
+  "lng": 121.413332,
+  "lat": 31.133873,
+  "approx": false
+ },
+ {
+  "id": 51,
+  "name": "古北1699商场",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "普通店铺消费10元、生鲜超市58元"
+   }
+  ],
+  "lng": 121.402775,
+  "lat": 31.188325,
+  "approx": false
+ },
+ {
+  "id": 52,
+  "name": "衡园莘光里",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "首小时免费"
+   }
+  ],
+  "lng": 121.391168,
+  "lat": 31.124176,
+  "approx": false
+ },
+ {
+  "id": 53,
+  "name": "红象汇",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "免费3小时"
+   }
+  ],
+  "lng": 121.380348,
+  "lat": 31.13802,
+  "approx": false
+ },
+ {
+  "id": 54,
+  "name": "白金汉爵大酒店",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "免费1小时"
+   }
+  ],
+  "lng": 121.418051,
+  "lat": 31.027182,
+  "approx": false
+ },
+ {
+  "id": 55,
+  "name": "中庚漫游城",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "新会员送2h、周一到四18:00~22:00"
+   }
+  ],
+  "lng": 121.396728,
+  "lat": 31.131232,
+  "approx": false
+ },
+ {
+  "id": 56,
+  "name": "莲花国际广场",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员每日1h，200积分兑换1h"
+   }
+  ],
+  "lng": 121.402538,
+  "lat": 31.133711,
+  "approx": false
+ },
+ {
+  "id": 57,
+  "name": "红星欧丽",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员免费3小时（会员1小时）"
+   }
+  ],
+  "lng": 121.374822,
+  "lat": 31.175306,
+  "approx": false
+ },
+ {
+  "id": 58,
+  "name": "集颛桥",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "工作日会员1小时"
+   }
+  ],
+  "lng": 121.405055,
+  "lat": 31.068452,
+  "approx": false
+ },
+ {
+  "id": 59,
+  "name": "合川利邻荟",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "餐饮娱乐服务商户内任意消费领取"
+   }
+  ],
+  "lng": 121.382219,
+  "lat": 31.173155,
+  "approx": false
+ },
+ {
+  "id": 60,
+  "name": "剪刀石头布家居广场",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "10h",
+    "t": "10:00-20:00免费停车"
+   }
+  ],
+  "lng": 121.380042,
+  "lat": 31.174578,
+  "approx": false
+ },
+ {
+  "id": 61,
+  "name": "仲盛世界商城",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "周一到周四任意消费并积分免费3h"
+   }
+  ],
+  "lng": 121.38707,
+  "lat": 31.107101,
+  "approx": false
+ },
+ {
+  "id": 62,
+  "name": "浦江欢乐颂",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "会员积分卡免费2小时"
+   }
+  ],
+  "lng": 121.503916,
+  "lat": 31.095054,
+  "approx": false
+ },
+ {
+  "id": 63,
+  "name": "海梦一方",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "节假日除外，工作日任意消费免费3h"
+   }
+  ],
+  "lng": 121.413937,
+  "lat": 31.099806,
+  "approx": false
+ },
+ {
+  "id": 64,
+  "name": "日月光中心",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "免费2小时"
+   }
+  ],
+  "lng": 121.468491,
+  "lat": 31.206583,
+  "approx": false
+ },
+ {
+  "id": 65,
+  "name": "PJC平金中心",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员免费1小时"
+   }
+  ],
+  "lng": 121.362663,
+  "lat": 31.132593,
+  "approx": false
+ },
+ {
+  "id": 66,
+  "name": "绚荟城",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "注册会员送1h、任意消费免费1h"
+   }
+  ],
+  "lng": 121.411113,
+  "lat": 31.100775,
+  "approx": false
+ },
+ {
+  "id": 67,
+  "name": "弘基广场",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "免费3小时"
+   }
+  ],
+  "lng": 121.386424,
+  "lat": 31.315582,
+  "approx": false
+ },
+ {
+  "id": 68,
+  "name": "虹桥前湾印象城",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "周末任意消费免费4小时"
+   }
+  ],
+  "lng": 121.277606,
+  "lat": 31.215817,
+  "approx": false
+ },
+ {
+  "id": 69,
+  "name": "置业梦享家",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "免费3小时"
+   }
+  ],
+  "lng": 121.419518,
+  "lat": 31.014736,
+  "approx": false
+ },
+ {
+  "id": 70,
+  "name": "诺瓦城NOVA ARK",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "任意消费并积分免费2小时"
+   }
+  ],
+  "lng": 121.428756,
+  "lat": 31.108719,
+  "approx": false
+ },
+ {
+  "id": 71,
+  "name": "山纲和润会",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "会员免费2小时"
+   }
+  ],
+  "lng": 121.51984,
+  "lat": 31.026825,
+  "approx": false
+ },
+ {
+  "id": 72,
+  "name": "莘庄龙之梦",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "5h",
+    "t": "会员19:00~23:59免费停车5小时"
+   }
+  ],
+  "lng": 121.378283,
+  "lat": 31.107788,
+  "approx": false
+ },
+ {
+  "id": 73,
+  "name": "七宝嘉寰广场",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "会员任意消费免费2小时"
+   }
+  ],
+  "lng": 121.341758,
+  "lat": 31.165449,
+  "approx": false
+ },
+ {
+  "id": 74,
+  "name": "爱琴海购物中心",
+  "district": "闵行区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "任意消费积分免费2小时"
+   }
+  ],
+  "lng": 121.373308,
+  "lat": 31.174863,
+  "approx": false
+ },
+ {
+  "id": 75,
+  "name": "上海国际时尚中心",
+  "district": "杨浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "注册会员后每天免费1小时"
+   }
+  ],
+  "lng": 121.558345,
+  "lat": 31.271007,
+  "approx": false
+ },
+ {
+  "id": 76,
+  "name": "国华广场",
+  "district": "杨浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "新会员送2小时，任意消费积分1h"
+   }
+  ],
+  "lng": 121.511861,
+  "lat": 31.311991,
+  "approx": false
+ },
+ {
+  "id": 77,
+  "name": "紫荆广场",
+  "district": "杨浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员首小时免费"
+   }
+  ],
+  "lng": 121.516719,
+  "lat": 31.275112,
+  "approx": false
+ },
+ {
+  "id": 78,
+  "name": "东方渔人码头",
+  "district": "杨浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "新会员送300积分，100积分/h"
+   },
+   {
+    "h": "5h",
+    "t": "开通微信无感送500积分"
+   }
+  ],
+  "lng": 121.532213,
+  "lat": 31.251967,
+  "approx": false
+ },
+ {
+  "id": 79,
+  "name": "五角场创智天地",
+  "district": "杨浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "新会员任意消费送450积分，300/1h；加企业微信认证，周一到周四1h券"
+   }
+  ],
+  "lng": 121.51302,
+  "lat": 31.306068,
+  "approx": false
+ },
+ {
+  "id": 80,
+  "name": "宝龙旭辉广场",
+  "district": "杨浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员免费1小时"
+   }
+  ],
+  "lng": 121.542945,
+  "lat": 31.277802,
+  "approx": false
+ },
+ {
+  "id": 81,
+  "name": "合生汇",
+  "district": "杨浦区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "新会员送500积分，1小时免费"
+   }
+  ],
+  "lng": 121.517962,
+  "lat": 31.299787,
+  "approx": false
+ },
+ {
+  "id": 82,
+  "name": "悠方购物中心",
+  "district": "杨浦区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "银卡200积分、金卡200积分2h、黑卡3h"
+   }
+  ],
+  "lng": 121.508465,
+  "lat": 31.329994,
+  "approx": false
+ },
+ {
+  "id": 83,
+  "name": "百联青浦奥特莱斯",
+  "district": "青浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "24h",
+    "t": "免费停车"
+   }
+  ],
+  "lng": 121.228683,
+  "lat": 31.156833,
+  "approx": false
+ },
+ {
+  "id": 84,
+  "name": "青浦吾悦广场",
+  "district": "青浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "新会员1h/盒马消费免费2h叠加"
+   }
+  ],
+  "lng": 121.095092,
+  "lat": 31.144145,
+  "approx": false
+ },
+ {
+  "id": 85,
+  "name": "青浦东渡蛙城",
+  "district": "青浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "任意消费免费2小时"
+   }
+  ],
+  "lng": 121.081141,
+  "lat": 31.134886,
+  "approx": false
+ },
+ {
+  "id": 86,
+  "name": "蟠龙天地",
+  "district": "青浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "迪丰工厂店"
+   }
+  ],
+  "lng": 121.27552,
+  "lat": 31.188492,
+  "approx": false
+ },
+ {
+  "id": 87,
+  "name": "元祖梦世界",
+  "district": "青浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "免费3小时"
+   }
+  ],
+  "lng": 121.226466,
+  "lat": 31.149177,
+  "approx": false
+ },
+ {
+  "id": 88,
+  "name": "绿洲智谷·花园里",
+  "district": "青浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "会员工作日免费4小时"
+   },
+   {
+    "h": "8h",
+    "t": "周末及节假日免费4小时"
+   }
+  ],
+  "lng": 121.224139,
+  "lat": 31.164182,
+  "approx": false
+ },
+ {
+  "id": 89,
+  "name": "万科天空之城广场",
+  "district": "青浦区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "新会员单笔消费满100、金卡"
+   }
+  ],
+  "lng": 121.253051,
+  "lat": 31.176927,
+  "approx": false
+ },
+ {
+  "id": 90,
+  "name": "青浦宝龙广场",
+  "district": "青浦区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "永辉超市消费满58元"
+   }
+  ],
+  "lng": 121.152898,
+  "lat": 31.162151,
+  "approx": false
+ },
+ {
+  "id": 91,
+  "name": "上生新所",
+  "district": "长宁区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "新会员送200积分，200积分兑换1h"
+   }
+  ],
+  "lng": 121.427719,
+  "lat": 31.208185,
+  "approx": false
+ },
+ {
+  "id": 92,
+  "name": "Art Park大融城",
+  "district": "长宁区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员任意消费免费1小时"
+   }
+  ],
+  "lng": 121.359678,
+  "lat": 31.217422,
+  "approx": false
+ },
+ {
+  "id": 93,
+  "name": "尚嘉中心",
+  "district": "长宁区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员周末任意消费积分，免费3h"
+   }
+  ],
+  "lng": 121.407137,
+  "lat": 31.205688,
+  "approx": false
+ },
+ {
+  "id": 94,
+  "name": "Livat荟聚",
+  "district": "长宁区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员任意消费免费3小时"
+   },
+   {
+    "h": "1h",
+    "t": "双会员周末首小时免费"
+   }
+  ],
+  "lng": 121.356695,
+  "lat": 31.221909,
+  "approx": false
+ },
+ {
+  "id": 95,
+  "name": "又又中心",
+  "district": "长宁区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "新会员消费送300积分，150积分兑1h"
+   }
+  ],
+  "lng": 121.421014,
+  "lat": 31.218278,
+  "approx": false
+ },
+ {
+  "id": 96,
+  "name": "缤谷广场",
+  "district": "长宁区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "新注册联名会员全天免费停车券1张；工作日任意消费免费1小时"
+   }
+  ],
+  "lng": 121.387797,
+  "lat": 31.214255,
+  "approx": false
+ },
+ {
+  "id": 97,
+  "name": "百联西郊购物中心",
+  "district": "长宁区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员免费3小时"
+   },
+   {
+    "h": "3h",
+    "t": "工作日任意消费积分免费3小时"
+   },
+   {
+    "h": "2h",
+    "t": "周末节假日任意消费积分免费2小时"
+   }
+  ],
+  "lng": 121.370279,
+  "lat": 31.209086,
+  "approx": false
+ },
+ {
+  "id": 98,
+  "name": "东虹桥中心",
+  "district": "长宁区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "荟品仓任意消费免费3小时"
+   }
+  ],
+  "lng": 121.353348,
+  "lat": 31.195079,
+  "approx": false
+ },
+ {
+  "id": 99,
+  "name": "晶耀虹桥",
+  "district": "长宁区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员免费3小时"
+   }
+  ],
+  "lng": 121.398429,
+  "lat": 31.213587,
+  "approx": false
+ },
+ {
+  "id": 100,
+  "name": "天山百盛优客",
+  "district": "长宁区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "消费满200元兑换1小时免费停车；300元免2小时，400元免3小时，500元免4小时，600元免5小时"
+   }
+  ],
+  "lng": 121.403336,
+  "lat": 31.21049,
+  "approx": false
+ },
+ {
+  "id": 101,
+  "name": "人广来福士",
+  "district": "黄浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "工作日18:00餐饮类任意消费免1h"
+   }
+  ],
+  "lng": 121.476607,
+  "lat": 31.232454,
+  "approx": false
+ },
+ {
+  "id": 102,
+  "name": "恒基旭辉天地",
+  "district": "黄浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "新会员送100积分，100积分免费1h"
+   }
+  ],
+  "lng": 121.474922,
+  "lat": 31.212152,
+  "approx": false
+ },
+ {
+  "id": 103,
+  "name": "上海时代广场",
+  "district": "黄浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "工作日19时后、周末任意消费积分免费2h"
+   }
+  ],
+  "lng": 121.478718,
+  "lat": 31.224526,
+  "approx": false
+ },
+ {
+  "id": 104,
+  "name": "力宝广场",
+  "district": "黄浦区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "周末任意消费服务台办理免费2h"
+   }
+  ],
+  "lng": 121.475689,
+  "lat": 31.224208,
+  "approx": false
+ },
+ {
+  "id": 105,
+  "name": "博荟广场",
+  "district": "黄浦区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "周末当日累计消费满128元并成功积分"
+   },
+   {
+    "h": "1h",
+    "t": "会员300积分/电影票票根并成功积分"
+   }
+  ],
+  "lng": 121.480342,
+  "lat": 31.196098,
+  "approx": false
+ },
+ {
+  "id": 106,
+  "name": "中环广场",
+  "district": "黄浦区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "消费满200元免费1小时"
+   }
+  ],
+  "lng": 121.472938,
+  "lat": 31.222032,
+  "approx": false
+ },
+ {
+  "id": 107,
+  "name": "新天地湖滨道",
+  "district": "黄浦区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "周末消费88免费3h，工作日199/3h"
+   }
+  ],
+  "lng": 121.478971,
+  "lat": 31.220984,
+  "approx": false
+ },
+ {
+  "id": 108,
+  "name": "无限极荟",
+  "district": "黄浦区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "周末满99元消费积分免费3h"
+   }
+  ],
+  "lng": 121.477782,
+  "lat": 31.220642,
+  "approx": false
+ },
+ {
+  "id": 109,
+  "name": "大丸百货",
+  "district": "黄浦区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "金卡会员免费停3小时每月"
+   }
+  ],
+  "lng": 121.485527,
+  "lat": 31.238355,
+  "approx": false
+ },
+ {
+  "id": 110,
+  "name": "中海环宇荟",
+  "district": "黄浦区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "单笔消费满100享1h，300积分享2h"
+   }
+  ],
+  "lng": 121.476853,
+  "lat": 31.211609,
+  "approx": false
+ },
+ {
+  "id": 111,
+  "name": "嘉定月光",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "凭当日任意小票免费停车2小时"
+   }
+  ],
+  "lng": 121.238315,
+  "lat": 31.390272,
+  "approx": false
+ },
+ {
+  "id": 112,
+  "name": "吉宝绿地缤纷城",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "会员免费2h，非会员1h，电影票4h"
+   }
+  ],
+  "lng": 121.276164,
+  "lat": 31.321321,
+  "approx": false
+ },
+ {
+  "id": 113,
+  "name": "保利悦活城",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "免费2小时"
+   }
+  ],
+  "lng": 121.261675,
+  "lat": 31.353825,
+  "approx": false
+ },
+ {
+  "id": 114,
+  "name": "花都荟",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "周末及节假日1h，工作日3h"
+   }
+  ],
+  "lng": 121.252853,
+  "lat": 31.373897,
+  "approx": false
+ },
+ {
+  "id": 115,
+  "name": "南翔印象城MEGA",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "金卡会员2h，300积分1h，最高抵扣2h"
+   }
+  ],
+  "lng": 121.305986,
+  "lat": 31.304724,
+  "approx": false
+ },
+ {
+  "id": 116,
+  "name": "信业购物中心",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "新注册送500积分，200积分兑换1h"
+   }
+  ],
+  "lng": 121.248055,
+  "lat": 31.396124,
+  "approx": false
+ },
+ {
+  "id": 117,
+  "name": "嘉亭荟",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "新会员1h/首次微信支付并积分2h"
+   }
+  ],
+  "lng": 121.161976,
+  "lat": 31.287706,
+  "approx": false
+ },
+ {
+  "id": 118,
+  "name": "西云楼",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "免费2h"
+   }
+  ],
+  "lng": 121.258829,
+  "lat": 31.357603,
+  "approx": false
+ },
+ {
+  "id": 119,
+  "name": "TSF购物中心",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "前台登记免费3小时"
+   }
+  ],
+  "lng": 121.263294,
+  "lat": 31.352642,
+  "approx": false
+ },
+ {
+  "id": 120,
+  "name": "大橘邻里",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "免费2小时"
+   }
+  ],
+  "lng": 121.506191,
+  "lat": 31.083204,
+  "approx": false
+ },
+ {
+  "id": 121,
+  "name": "华泰中心",
+  "district": "嘉定区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "免费2小时，10积分兑换1小时"
+   }
+  ],
+  "lng": 121.319549,
+  "lat": 31.236484,
+  "approx": false
+ },
+ {
+  "id": 122,
+  "name": "山姆嘉定店",
+  "district": "嘉定区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "消费满50元免费2小时"
+   }
+  ],
+  "lng": 121.293168,
+  "lat": 31.300118,
+  "approx": false
+ },
+ {
+  "id": 123,
+  "name": "嘉定大融城",
+  "district": "嘉定区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "消费满28元免费2小时"
+   }
+  ],
+  "lng": 121.279758,
+  "lat": 31.33073,
+  "approx": false
+ },
+ {
+  "id": 124,
+  "name": "瑞虹天地",
+  "district": "虹口区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "太阳宫、月亮湾周一到周四"
+   },
+   {
+    "h": "5h",
+    "t": "月亮湾21:00到2:00免费停车"
+   }
+  ],
+  "lng": 121.500925,
+  "lat": 31.262275,
+  "approx": false
+ },
+ {
+  "id": 125,
+  "name": "利通广场",
+  "district": "虹口区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "任意消费工作日免费1h，周末免费2h"
+   }
+  ],
+  "lng": 121.484773,
+  "lat": 31.252837,
+  "approx": false
+ },
+ {
+  "id": 126,
+  "name": "今雨荟",
+  "district": "虹口区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "新注册免费2h，200积分兑换1h；任意消费并积分免费2小时"
+   }
+  ],
+  "lng": 121.465524,
+  "lat": 31.287748,
+  "approx": false
+ },
+ {
+  "id": 127,
+  "name": "虹口龙之梦",
+  "district": "虹口区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "600积分兑换3小时停车"
+   }
+  ],
+  "lng": 121.477979,
+  "lat": 31.270924,
+  "approx": false
+ },
+ {
+  "id": 128,
+  "name": "友邦金融中心",
+  "district": "虹口区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员消费满50元免费1h，100积分1h"
+   }
+  ],
+  "lng": 121.505261,
+  "lat": 31.251825,
+  "approx": false
+ },
+ {
+  "id": 129,
+  "name": "嘉里合集",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "8h",
+    "t": "节假日任意消费"
+   },
+   {
+    "h": "1h",
+    "t": "累积消费50元免费1h，80元2h，100元3h"
+   }
+  ],
+  "lng": 121.449749,
+  "lat": 31.223558,
+  "approx": false
+ },
+ {
+  "id": 130,
+  "name": "MOHO MALL",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "5h",
+    "t": "任意指定消费工作日免费3h，周末节假日5h"
+   }
+  ],
+  "lng": 121.448417,
+  "lat": 31.237478,
+  "approx": false
+ },
+ {
+  "id": 131,
+  "name": "苏河湾万象天地",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员注册1小时免费停车，生日免费停车"
+   }
+  ],
+  "lng": 121.477247,
+  "lat": 31.242543,
+  "approx": false
+ },
+ {
+  "id": 132,
+  "name": "静安大融城",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员周一到周四在小程序领"
+   }
+  ],
+  "lng": 121.427231,
+  "lat": 31.279852,
+  "approx": false
+ },
+ {
+  "id": 133,
+  "name": "静安国际中心",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员免费1小时，200积分兑换1小时"
+   }
+  ],
+  "lng": 121.452508,
+  "lat": 31.242687,
+  "approx": false
+ },
+ {
+  "id": 134,
+  "name": "协信星光广场",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "任意消费免费2h"
+   }
+  ],
+  "lng": 121.458874,
+  "lat": 31.29736,
+  "approx": false
+ },
+ {
+  "id": 135,
+  "name": "悦达889商场",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "新会员送200积分，100积分免1h"
+   }
+  ],
+  "lng": 121.428072,
+  "lat": 31.22962,
+  "approx": false
+ },
+ {
+  "id": 136,
+  "name": "兴业太古汇",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员任意消费积分免费1h"
+   }
+  ],
+  "lng": 121.463104,
+  "lat": 31.228926,
+  "approx": false
+ },
+ {
+  "id": 137,
+  "name": "丰盛商业中心",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "任意消费服务台兑换免费1小时"
+   }
+  ],
+  "lng": 121.462001,
+  "lat": 31.227307,
+  "approx": false
+ },
+ {
+  "id": 138,
+  "name": "嘉禾中心",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "工作日18~22时任意消费免费停车"
+   },
+   {
+    "h": "1h",
+    "t": "周末10~22时任意消费免费1小时"
+   }
+  ],
+  "lng": 121.454655,
+  "lat": 31.232413,
+  "approx": false
+ },
+ {
+  "id": 139,
+  "name": "静安大宁时光里",
+  "district": "静安区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "24h",
+    "t": "全天免费停车"
+   }
+  ],
+  "lng": 121.453465,
+  "lat": 31.28377,
+  "approx": false
+ },
+ {
+  "id": 140,
+  "name": "锦沧文华",
+  "district": "静安区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "单笔消费满299元免费3h"
+   }
+  ],
+  "lng": 121.454134,
+  "lat": 31.226646,
+  "approx": false
+ },
+ {
+  "id": 141,
+  "name": "中信泰富",
+  "district": "静安区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "会员单笔消费满300/19:00~01:00指定餐饮"
+   }
+  ],
+  "lng": 121.455673,
+  "lat": 31.228285,
+  "approx": false
+ },
+ {
+  "id": 142,
+  "name": "太古汇",
+  "district": "静安区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "充电10分钟/1000积分千寻卡"
+   }
+  ],
+  "lng": 121.463104,
+  "lat": 31.228926,
+  "approx": false
+ },
+ {
+  "id": 143,
+  "name": "大宁久光",
+  "district": "静安区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "消费满300元可以抵扣1h"
+   }
+  ],
+  "lng": 121.451283,
+  "lat": 31.276292,
+  "approx": false
+ },
+ {
+  "id": 144,
+  "name": "上海利园",
+  "district": "静安区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "工作日消费满50元"
+   },
+   {
+    "h": "4h",
+    "t": "周末节假日消费满200元免"
+   }
+  ],
+  "lng": 121.461154,
+  "lat": 31.237739,
+  "approx": false
+ },
+ {
+  "id": 145,
+  "name": "ITC国汇茂",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "20:00后任意消费免费1h"
+   }
+  ],
+  "lng": 121.437968,
+  "lat": 31.197769,
+  "approx": false
+ },
+ {
+  "id": 146,
+  "name": "绿地缤纷城",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "新会员送100积分"
+   }
+  ],
+  "lng": 121.456748,
+  "lat": 31.183613,
+  "approx": false
+ },
+ {
+  "id": 147,
+  "name": "漕河泾印象城",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "工作日18:00后/周末任意消费积分"
+   }
+  ],
+  "lng": 121.399975,
+  "lat": 31.161958,
+  "approx": false
+ },
+ {
+  "id": 148,
+  "name": "凌云天地",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "免费1小时"
+   }
+  ],
+  "lng": 121.431325,
+  "lat": 31.136792,
+  "approx": false
+ },
+ {
+  "id": 149,
+  "name": "中星城",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "荟品仓任意消费免1h，满158元免2h"
+   }
+  ],
+  "lng": 121.429526,
+  "lat": 31.158993,
+  "approx": false
+ },
+ {
+  "id": 150,
+  "name": "云锦天地",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员免费停车1小时"
+   }
+  ],
+  "lng": 121.456697,
+  "lat": 31.165351,
+  "approx": false
+ },
+ {
+  "id": 151,
+  "name": "漕河泾M+",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "24h",
+    "t": "开业免费停车"
+   }
+  ],
+  "lng": 121.43864,
+  "lat": 31.124861,
+  "approx": false
+ },
+ {
+  "id": 152,
+  "name": "徐汇宜家",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "任意消费周一~周四免3h，周五4h"
+   },
+   {
+    "h": "1h",
+    "t": "周末免费1小时"
+   }
+  ],
+  "lng": 121.433984,
+  "lat": 31.177884,
+  "approx": false
+ },
+ {
+  "id": 153,
+  "name": "FFC滨江悦里",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "24h",
+    "t": "开业免费"
+   }
+  ],
+  "lng": 121.468738,
+  "lat": 31.192881,
+  "approx": false
+ },
+ {
+  "id": 154,
+  "name": "徐汇月光",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "新会员注册免费2小时"
+   }
+  ],
+  "lng": 121.432587,
+  "lat": 31.169004,
+  "approx": false
+ },
+ {
+  "id": 155,
+  "name": "西岸中环",
+  "district": "徐汇区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "任意消费积分免费2小时"
+   }
+  ],
+  "lng": 121.468994,
+  "lat": 31.189167,
+  "approx": false
+ },
+ {
+  "id": 156,
+  "name": "尚湾里",
+  "district": "徐汇区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "消费满19.9元免费2小时"
+   }
+  ],
+  "lng": 121.461452,
+  "lat": 31.181015,
+  "approx": false
+ },
+ {
+  "id": 157,
+  "name": "东鼎购物中心",
+  "district": "松江区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "0.5h",
+    "t": "免费"
+   }
+  ],
+  "lng": 121.211439,
+  "lat": 31.037746,
+  "approx": false
+ },
+ {
+  "id": 158,
+  "name": "乐尚天地生活广场",
+  "district": "松江区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "免费"
+   }
+  ],
+  "lng": 121.296099,
+  "lat": 31.025439,
+  "approx": false
+ },
+ {
+  "id": 159,
+  "name": "云间粮仓",
+  "district": "松江区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "免费"
+   }
+  ],
+  "lng": 121.24224,
+  "lat": 31.000896,
+  "approx": false
+ },
+ {
+  "id": 160,
+  "name": "亚乐城",
+  "district": "松江区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员免费3小时"
+   }
+  ],
+  "lng": 121.349647,
+  "lat": 31.097493,
+  "approx": false
+ },
+ {
+  "id": 161,
+  "name": "佘山旭辉里",
+  "district": "松江区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "6h",
+    "t": "50积分免费6小时"
+   }
+  ],
+  "lng": 121.213902,
+  "lat": 31.115911,
+  "approx": false
+ },
+ {
+  "id": 162,
+  "name": "信泰中心",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "周末及节假日1积分兑换免费4h"
+   },
+   {
+    "h": "2h",
+    "t": "新注册免费/工作日任意消费"
+   }
+  ],
+  "lng": 121.395784,
+  "lat": 31.243854,
+  "approx": false
+ },
+ {
+  "id": 163,
+  "name": "近铁城市广场南区",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "工作日18点后/周末任意消费"
+   }
+  ],
+  "lng": 121.3817,
+  "lat": 31.232492,
+  "approx": false
+ },
+ {
+  "id": 164,
+  "name": "山姆真如店",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "消费满100免费2小时"
+   }
+  ],
+  "lng": 121.409225,
+  "lat": 31.248545,
+  "approx": false
+ },
+ {
+  "id": 165,
+  "name": "桃浦湾TOP ONE",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "提前注册，周末免费，工作日消费59"
+   }
+  ],
+  "lng": 121.375147,
+  "lat": 31.27114,
+  "approx": false
+ },
+ {
+  "id": 166,
+  "name": "长风大悦城",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "限时",
+    "t": "20:00~3:00免费停车"
+   }
+  ],
+  "lng": 121.395319,
+  "lat": 31.222678,
+  "approx": false
+ },
+ {
+  "id": 167,
+  "name": "鸿寿坊",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "注册并消费送450积分，200积分兑1h"
+   }
+  ],
+  "lng": 121.440239,
+  "lat": 31.241068,
+  "approx": false
+ },
+ {
+  "id": 168,
+  "name": "118广场",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "新会员送800积分，200积分兑换1h"
+   }
+  ],
+  "lng": 121.377695,
+  "lat": 31.231457,
+  "approx": false
+ },
+ {
+  "id": 169,
+  "name": "红星美凯龙真北路",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员免费1小时"
+   }
+  ],
+  "lng": 121.385892,
+  "lat": 31.240145,
+  "approx": false
+ },
+ {
+  "id": 170,
+  "name": "真如环宇城MAX",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "会员免费1小时"
+   }
+  ],
+  "lng": 121.409023,
+  "lat": 31.250309,
+  "approx": false
+ },
+ {
+  "id": 171,
+  "name": "桃浦TOP金光汇",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员凭当日任意消费3小时停车券；周一至周五免费3小时(10:00-21:30)；周六/周日免费2小时(10:00-21:30)"
+   }
+  ],
+  "lng": 121.384233,
+  "lat": 31.292047,
+  "approx": false
+ },
+ {
+  "id": 172,
+  "name": "星邻·生活荟",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "注册送100积分，100积分兑换1h；工作日免费1小时，周末免费2h"
+   }
+  ],
+  "lng": 121.394216,
+  "lat": 31.260549,
+  "approx": false
+ },
+ {
+  "id": 173,
+  "name": "金环广场",
+  "district": "普陀区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "免费4h"
+   }
+  ],
+  "lng": 121.364557,
+  "lat": 31.276054,
+  "approx": false
+ },
+ {
+  "id": 174,
+  "name": "长风via",
+  "district": "普陀区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "4h",
+    "t": "周末及节假日消费满39"
+   },
+   {
+    "h": "2h",
+    "t": "工作日消费满39元"
+   }
+  ],
+  "lng": 121.395341,
+  "lat": 31.227214,
+  "approx": false
+ },
+ {
+  "id": 175,
+  "name": "宝山经纬汇",
+  "district": "宝山区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "任意消费积分免费1小时"
+   }
+  ],
+  "lng": 121.399176,
+  "lat": 31.323344,
+  "approx": false
+ },
+ {
+  "id": 176,
+  "name": "定海神针观光塔",
+  "district": "宝山区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "5h",
+    "t": "免费5小时"
+   }
+  ],
+  "lng": 121.488338,
+  "lat": 31.414634,
+  "approx": false
+ },
+ {
+  "id": 177,
+  "name": "大华老镇嘉年华",
+  "district": "宝山区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "会员任意消费"
+   }
+  ],
+  "lng": 121.417644,
+  "lat": 31.302115,
+  "approx": false
+ },
+ {
+  "id": 178,
+  "name": "宝山月光",
+  "district": "宝山区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "6h",
+    "t": "工作日任意消费积分"
+   },
+   {
+    "h": "2h",
+    "t": "周末节假日指定商户消费"
+   }
+  ],
+  "lng": 121.417875,
+  "lat": 31.29486,
+  "approx": false
+ },
+ {
+  "id": 179,
+  "name": "翼生活广场",
+  "district": "宝山区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "免费1小时"
+   }
+  ],
+  "lng": 121.443409,
+  "lat": 31.366516,
+  "approx": false
+ },
+ {
+  "id": 180,
+  "name": "大华虎城中心",
+  "district": "宝山区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "新会员"
+   }
+  ],
+  "lng": 121.413936,
+  "lat": 31.271415,
+  "approx": false
+ },
+ {
+  "id": 181,
+  "name": "世华1956广场",
+  "district": "宝山区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "1h",
+    "t": "免费1小时"
+   }
+  ],
+  "lng": 121.441725,
+  "lat": 31.365852,
+  "approx": false
+ },
+ {
+  "id": 182,
+  "name": "海上世界",
+  "district": "宝山区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "3h",
+    "t": "会员免费3小时"
+   }
+  ],
+  "lng": 121.502274,
+  "lat": 31.405121,
+  "approx": false
+ },
+ {
+  "id": 183,
+  "name": "金富门Park1287",
+  "district": "宝山区",
+  "tier": "无门槛",
+  "rules": [
+   {
+    "h": "24h",
+    "t": "新开业免费"
+   }
+  ],
+  "lng": 121.486859,
+  "lat": 31.396511,
+  "approx": false
+ },
+ {
+  "id": 184,
+  "name": "山姆聚丰广场",
+  "district": "宝山区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "消费满50免费2小时"
+   }
+  ],
+  "lng": 121.383275,
+  "lat": 31.315423,
+  "approx": false
+ },
+ {
+  "id": 185,
+  "name": "中集金地广场",
+  "district": "宝山区",
+  "tier": "需消费",
+  "rules": [
+   {
+    "h": "2h",
+    "t": "盒马消费满88免停2小时；快充15分钟免费2小时，不叠加"
+   }
+  ],
+  "lng": 121.349448,
+  "lat": 31.399691,
+  "approx": false
+ }
 ];

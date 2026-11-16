@@ -1,4 +1,5 @@
-# 地理编码中间产物，不入库
+# 数据生产中间产物，不入库
 tools/geo.json
+tools/amap-audit.json
 node_modules/
 .DS_Store
