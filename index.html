@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>上海免费停车点地图</title>
+<meta name="description" content="上海商场免费停车点地图：查看、搜索免费停车时段与说明">
+<link rel="stylesheet" href="leaflet/leaflet.css">
+<style>
+  :root {
+    --primary: #16a34a;
+    --primary-dark: #15803d;
+    --bg: #f4f6f5;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text-2: #64748b;
+    --line: #e2e8f0;
+    --radius: 12px;
+    --shadow: 0 2px 10px rgba(15, 23, 42, .08);
+    --panel-w: 360px;
+    --peek-h: 190px; /* 移动端抽屉收起时露出搜索区的高度（JS 会按实际高度校正） */
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    overflow: hidden;
+  }
+  #app { display: flex; height: 100%; }
+
+  /* ---------- 左侧面板（桌面）/ 底部抽屉（移动端） ---------- */
+  #panel {
+    width: var(--panel-w);
+    flex: none;
+    background: var(--card);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--line);
+    z-index: 1000;
+  }
+  .panel-head { padding: 14px 14px 10px; border-bottom: 1px solid var(--line); flex: none; }
+  .brand { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .brand .logo {
+    width: 30px; height: 30px; border-radius: 9px; flex: none;
+    background: linear-gradient(135deg, var(--primary), #4ade80);
+    color: #fff; font-weight: 800; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand h1 { font-size: 17px; font-weight: 700; letter-spacing: .5px; }
+  .search-box { position: relative; }
+  .search-box input {
+    width: 100%; padding: 10px 38px 10px 36px;
+    border: 1.5px solid var(--line); border-radius: 10px;
+    font-size: 14px; background: var(--bg); color: var(--text);
+    outline: none; transition: border-color .15s;
+  }
+  .search-box input:focus { border-color: var(--primary); background: #fff; }
+  .search-box .icon {
+    position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; color: var(--text-2); pointer-events: none;
+  }
+  .search-box .clear {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    width: 28px; height: 28px; border: 0; border-radius: 50%;
+    background: transparent; color: var(--text-2); font-size: 18px; cursor: pointer;
+    display: none;
+  }
+  .search-box .clear.show { display: block; }
+  .meta { display: flex; justify-content: space-between; align-items: center; margin-top: 9px; font-size: 12px; color: var(--text-2); }
+  .meta .badge { color: var(--primary-dark); font-weight: 600; }
+
+  /* 区筛选 */
+  .chips { display: flex; gap: 6px; overflow-x: auto; margin-top: 9px; padding-bottom: 2px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: none; padding: 4px 12px; border-radius: 999px;
+    background: var(--bg); border: 1px solid var(--line);
+    font-size: 12.5px; color: var(--text-2); cursor: pointer; user-select: none;
+  }
+  .chip.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .drawer-grip { display: none; }
+
+  /* ---------- 列表 ---------- */
+  #list { flex: 1; overflow-y: auto; list-style: none; padding: 8px; overscroll-behavior: contain; }
+  #list li {
+    padding: 11px 12px; border-radius: var(--radius); cursor: pointer;
+    border: 1px solid transparent; transition: background .12s, border-color .12s;
+  }
+  #list li:hover { background: var(--bg); }
+  #list li.active { background: #f0fdf4; border-color: #bbf7d0; }
+  .poi-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .tier { font-size: 11px; padding: 1px 6px; border-radius: 6px; font-weight: 600; flex: none; }
+  .tier.free { background: #dcfce7; color: #15803d; }
+  .tier.cost { background: #ffedd5; color: #c2410c; }
+  .rule-line { display: flex; gap: 6px; font-size: 12.5px; line-height: 1.55; color: var(--text-2); margin-bottom: 2px; }
+  .rule-line b { color: var(--primary-dark); flex: none; }
+  .poi-district { font-size: 12px; color: var(--text-2); margin-bottom: 3px; }
+  .empty { text-align: center; color: var(--text-2); font-size: 13px; padding: 40px 0; }
+
+  /* ---------- 地图 ---------- */
+  #map { flex: 1; height: 100%; }
+  #reset-btn {
+    position: absolute; right: 12px; bottom: 24px; z-index: 900;
+    width: 38px; height: 38px; border: 0; border-radius: 10px;
+    background: #fff; box-shadow: var(--shadow); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary-dark);
+  }
+  .p-marker .p-pin {
+    width: 30px; height: 30px; border-radius: 50% 50% 50% 4px;
+    transform: rotate(-45deg);
+    background: linear-gradient(135deg, var(--primary), #22c55e);
+    border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .p-marker.cost .p-pin { background: linear-gradient(135deg, #f97316, #fb923c); }
+  .p-marker .p-pin span { transform: rotate(45deg); color: #fff; font-weight: 800; font-size: 14px; line-height: 1; }
+  .leaflet-popup-content { margin: 12px 14px; font-size: 13px; line-height: 1.6; min-width: 200px; }
+  .pop-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .pop-rule { display: flex; gap: 6px; margin-bottom: 2px; color: var(--text-2); }
+  .pop-rule b { color: var(--primary-dark); flex: none; }
+  .pop-approx { font-size: 12px; color: #b45309; margin: 6px 0 2px; }
+  .pop-link { font-size: 13px; color: var(--primary-dark); font-weight: 600; text-decoration: none; display: inline-block; margin-top: 6px; }
+  .leaflet-container { font: inherit; }
+
+  /* ---------- 移动端 ---------- */
+  @media (max-width: 768px) {
+    #app { display: block; }
+    #map { position: absolute; inset: 0; height: 100%; }
+    #panel {
+      position: fixed; left: 0; right: 0; bottom: 0; top: auto;
+      width: auto; height: 72vh;
+      border-radius: 18px 18px 0 0; border: 0;
+      box-shadow: 0 -6px 24px rgba(15, 23, 42, .18);
+      transform: translateY(calc(100% - var(--peek-h)));
+      transition: transform .28s cubic-bezier(.4, 0, .2, 1);
+    }
+    #panel.expanded { transform: translateY(0); }
+    .drawer-grip {
+      display: block; width: 100%; padding: 8px 0 2px; border: 0; background: none; cursor: pointer;
+    }
+    .drawer-grip::after {
+      content: ""; display: block; width: 40px; height: 4px; margin: 0 auto;
+      border-radius: 2px; background: #cbd5e1;
+    }
+    #list { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+    #reset-btn { bottom: calc(var(--peek-h) + 12px); }
+    .leaflet-popup-content { min-width: 180px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="panel">
+    <button class="drawer-grip" id="grip" aria-label="展开或收起列表"></button>
+    <div class="panel-head" id="head">
+      <div class="brand">
+        <div class="logo">P</div>
+        <h1>上海免费停车点</h1>
+      </div>
+      <div class="search-box">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="search" type="search" placeholder="搜索商场 / 说明 / 区域" autocomplete="off" enterkeyhint="search">
+        <button class="clear" id="clear" aria-label="清空搜索">×</button>
+      </div>
+      <div class="meta"><span id="count">加载中…</span><span>🟢无门槛 🟠需消费 · 更新 2025-11</span></div>
+      <div class="chips" id="chips"></div>
+    </div>
+    <ul id="list"></ul>
+  </aside>
+  <div id="map"></div>
+</div>
+<button id="reset-btn" title="回到全图">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 3v6h6"/></svg>
+</button>
+
+<script src="leaflet/leaflet.js"></script>
+<script src="data.js"></script>
+<script>
+/* ---------- 初始化地图 ---------- */
+const SH_CENTER = [31.2304, 121.4737]; // 人民广场附近（GCJ-02）
+const map = L.map("map", {
+  center: SH_CENTER,
+  zoom: 11,
+  zoomControl: !window.matchMedia("(max-width: 768px)").matches, // 移动端用双指缩放，隐藏按钮
+  maxZoom: 18
+});
+
+// 默认底图：高德街道图（GCJ-02，国内加载快，中文标注）
+const gaode = L.tileLayer(
+  "https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+  { subdomains: ["1", "2", "3", "4"], maxZoom: 18, attribution: "© 高德地图" }
+).addTo(map);
+
+// 备选底图：OpenStreetMap（WGS-84；切换后高德坐标系的数据会有几百米偏移）
+const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19, attribution: "© OpenStreetMap"
+});
+
+L.control.layers({ "高德地图": gaode, "OpenStreetMap": osm }, null, { position: "topright" }).addTo(map);
+document.getElementById("reset-btn").addEventListener("click", () => map.setView(SH_CENTER, 11));
+
+/* ---------- 区筛选与搜索状态 ---------- */
+const listEl = document.getElementById("list");
+const countEl = document.getElementById("count");
+const searchEl = document.getElementById("search");
+const clearEl = document.getElementById("clear");
+const chipsEl = document.getElementById("chips");
+const panelEl = document.getElementById("panel");
+
+const DISTRICTS = [...new Set(POIS.map(p => p.district))]; // 保持数据出现顺序
+let currentDistrict = "全部";
+
+let markers = {}; // id -> L.Marker
+let activeId = null;
+
+/* 图标：无门槛=绿色P，需消费=橙色P */
+function makeIcon(tier) {
+  return L.divIcon({
+    className: "p-marker" + (tier === "需消费" ? " cost" : ""),
+    html: '<div class="p-pin"><span>P</span></div>',
+    iconSize: [30, 30], iconAnchor: [15, 29], popupAnchor: [0, -20]
+  });
+}
+
+function popupHtml(p) {
+  const gaodeLink = `https://uri.amap.com/marker?position=${p.lng},${p.lat}&name=${encodeURIComponent(p.name)}&src=sh-free-parking&coordinate=gaode`;
+  return (
+    `<div class="pop-name">${p.name}</div>` +
+    p.rules.map(r => `<div class="pop-rule"><b>${r.h}</b><span>${r.t}</span></div>`).join("") +
+    (p.approx ? `<div class="pop-approx">⚠️ 位置为近似坐标，请以商场名导航为准</div>` : "") +
+    `<a class="pop-link" href="${gaodeLink}" target="_blank" rel="noopener">在高德地图中打开 ↗</a>`
+  );
+}
+
+function createMarkers(places) {
+  for (const id of Object.keys(markers)) {
+    if (!places.some(p => p.id === +id)) { map.removeLayer(markers[id]); delete markers[id]; }
+  }
+  for (const p of places) {
+    if (markers[p.id]) continue;
+    const m = L.marker([p.lat, p.lng], { icon: makeIcon(p.tier), title: p.name }).addTo(map);
+    m.bindPopup(popupHtml(p), { maxWidth: 280, autoPanPadding: [20, 60] });
+    m.on("click", () => highlight(p.id, false));
+    markers[p.id] = m;
+  }
+}
+
+function renderList(places) {
+  countEl.textContent = `共 ${places.length} 个地点`;
+  if (!places.length) {
+    listEl.innerHTML = '<div class="empty">没有匹配的地点<br>换个关键词或切换区域试试</div>';
+    return;
+  }
+  listEl.innerHTML = places.map(p => `
+    <li data-id="${p.id}">
+      <div class="poi-name">${p.name}<span class="tier ${p.tier === "需消费" ? "cost" : "free"}">${p.tier}</span></div>
+      ${p.rules.map(r => `<div class="rule-line"><b>${r.h}</b><span>${r.t}</span></div>`).join("")}
+    </li>`).join("");
+}
+
+listEl.addEventListener("click", e => {
+  const li = e.target.closest("li[data-id]");
+  if (!li) return;
+  const p = POIS.find(x => x.id === +li.dataset.id);
+  if (!p) return;
+  if (window.innerWidth <= 768) panelEl.classList.remove("expanded");
+  map.flyTo([p.lat, p.lng], 16, { duration: 0.8 });
+  markers[p.id].openPopup();
+});
+
+function highlight(id, scrollList) {
+  activeId = id;
+  listEl.querySelectorAll("li").forEach(li => li.classList.toggle("active", +li.dataset.id === id));
+  if (scrollList) {
+    const li = listEl.querySelector(`li[data-id="${id}"]`);
+    if (li) li.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }
+}
+
+/* ---------- 区筛选 chips ---------- */
+function renderChips() {
+  const names = ["全部", ...DISTRICTS];
+  chipsEl.innerHTML = names.map(n =>
+    `<span class="chip${n === currentDistrict ? " active" : ""}" data-d="${n}">${n}</span>`).join("");
+}
+chipsEl.addEventListener("click", e => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  currentDistrict = chip.dataset.d;
+  renderChips();
+  applyFilter();
+});
+
+/* ---------- 搜索（名称/区域/规则条件全部参与匹配） ---------- */
+function ruleText(p) { return p.rules.map(r => r.h + r.t).join(" "); }
+
+function applyFilter() {
+  const q = searchEl.value.trim().toLowerCase();
+  clearEl.classList.toggle("show", !!q);
+  const result = POIS.filter(p => {
+    if (currentDistrict !== "全部" && p.district !== currentDistrict) return false;
+    if (!q) return true;
+    return [p.name, p.district, p.tier, ruleText(p)].some(f => f && f.toLowerCase().includes(q));
+  });
+  renderList(result);
+  createMarkers(result);
+  if (activeId && !result.some(p => p.id === activeId)) { activeId = null; highlight(null, false); }
+}
+let t;
+searchEl.addEventListener("input", () => { clearTimeout(t); t = setTimeout(applyFilter, 150); });
+clearEl.addEventListener("click", () => { searchEl.value = ""; applyFilter(); searchEl.focus(); });
+searchEl.addEventListener("keydown", e => { if (e.key === "Enter") searchEl.blur(); }); // 收起手机键盘
+
+/* ---------- 移动端抽屉 ---------- */
+const grip = document.getElementById("grip");
+grip.addEventListener("click", () => panelEl.classList.toggle("expanded"));
+document.getElementById("head").addEventListener("click", e => {
+  // 收起状态下点击搜索区上方空白不抢焦点，直接展开
+  if (window.innerWidth <= 768 && !panelEl.classList.contains("expanded")
+      && !e.target.closest(".search-box") && !e.target.closest(".chips")) {
+    panelEl.classList.add("expanded");
+  }
+});
+// 输入法弹出时自动展开抽屉，避免被键盘遮挡
+searchEl.addEventListener("focus", () => { if (window.innerWidth <= 768) panelEl.classList.add("expanded"); });
+
+// 动态计算移动端抽屉收起时露出的高度（搜索区实际高度），避免估算误差
+const headEl = document.getElementById("head");
+function setPeekHeight() {
+  if (window.innerWidth > 768) return;
+  const h = grip.offsetHeight + headEl.offsetHeight + 4;
+  panelEl.style.setProperty("--peek-h", h + "px");
+  document.documentElement.style.setProperty("--peek-h", h + "px");
+}
+window.addEventListener("resize", setPeekHeight);
+
+/* ---------- 启动 ---------- */
+renderChips();
+applyFilter();
+setPeekHeight();
+</script>
+</body>
+</html>

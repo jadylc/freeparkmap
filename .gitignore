@@ -1,0 +1,4 @@
+# 地理编码中间产物，不入库
+tools/geo.json
+node_modules/
+.DS_Store
