@@ -67,44 +67,36 @@ git push -u origin main        # 首次推送，按提示登录 Gitee（密码�
 
 远程仓库已配置：https://gitee.com/jadylc/freeparkmap.git
 
-## 部署到 Cloudflare Pages（推荐：免费、免备案、注册简单）
+## 部署到 Cloudflare Pages（推荐：GitHub 自动部署）
 
-**方式一：控制台拖拽（最简单）**
-1. 打开 https://dash.cloudflare.com 注册/登录（邮箱即可，免费版无需信用卡）
-2. 左侧「Workers 和 Pages」→ 创建应用程序 → Pages → 「直接上传 / Upload assets」
-3. 项目名填 `sh-free-parking`，把本目录整个文件夹拖进去 → 部署
-4. 完成后得到 `https://sh-free-parking.pages.dev`，手机访问验证地图与搜索
+代码主仓库：https://github.com/jadylc/freeparkmap （Gitee 仓库为同步镜像）
 
-**方式二：wrangler CLI**
+**方式一：连接 GitHub 仓库（推荐，push 即自动部署）**
+1. 打开 https://dash.cloudflare.com（邮箱注册，免费版无需信用卡）
+2. Workers 和 Pages → 创建 → Pages → **连接到 Git** → 授权 GitHub → 选择 `jadylc/freeparkmap`
+3. 构建配置：Framework preset 选 **None**、**构建命令留空**、**构建输出目录填 `/`**
+4. Save and Deploy → 得到 `https://freeparkmap.pages.dev`，完成后用手机验证地图与搜索
+
+**方式二：控制台拖拽（不连仓库）**
+Workers 和 Pages → 创建 → Pages → "直接上传"，把本目录整个文件夹拖进去；以后更新数据需重新拖一次。
+
+**方式三：wrangler CLI**
 ```bash
 npm install -g wrangler
 wrangler login
-wrangler pages deploy . --project-name=sh-free-parking
+wrangler pages deploy . --project-name=freeparkmap
 ```
-
-**方式三：Git 自动部署（需 GitHub/GitLab）**
-Cloudflare 的 Git 集成不支持 Gitee；如需 push 自动部署，把仓库同步一份到 GitHub，在 Pages 项目设置里连接即可（构建命令留空、输出目录 `/`）。
 
 > 说明：默认域名 `*.pages.dev` 走 Cloudflare 全球节点（无大陆节点），国内一般可直连访问；免费额度 500 次构建/月、20,000 文件、单文件 25 MiB，静态请求不计费。
 
 ## 数据更新与重新部署
 
-- 改 `data.js` 后：方式一需重新拖拽上传一次；方式二重跑 `wrangler pages deploy .`；方式三 push 即自动
-- 代码继续托管在 Gitee 仓库（freeparkmap）作为主仓库
+- 改 `data.js` 后 push 到 GitHub 即自动部署（方式一）；拖拽方式则重新拖一次
+- 双远端同步：`git push github main` + `git push origin main`（origin = Gitee 镜像）
 
-## 备选/并列推荐：腾讯云 EdgeOne Makers（国内站）
+## 搁置：腾讯云 EdgeOne Makers（国内站）
 
-腾讯云**国内站**控制台（微信扫码/实名认证账号即可）就提供 Makers 部署服务，且**支持导入 Gitee 仓库自动部署**（官方文档明确支持 GitHub、Gitee 等）。入口：
-
-1. 登录 [EdgeOne 国内站控制台](https://console.cloud.tencent.com/edgeone) → Makers 标签 → 创建项目 → 「导入 Git 仓库」
-2. 关联 Gitee 账号，选择 `freeparkmap` 仓库，构建命令留空、输出目录填 `/`
-3. 之后每次 `git push` 自动重新部署（比 CF 的拖拽方式更省事）
-
-注意两点：
-1. 创建项目时的「加速区域」：选择不含中国大陆的区域（如"全球（不含中国大陆）"）可直接用默认域名 `*.edgeone.app` 免备案；要选含大陆节点的加速区域，域名必须已 ICP 备案
-2. 免费政策以控制台显示为准（公测期免费）
-
-与 CF Pages 并列部署一份做对比也是不错的做法。
+已试部署成功（`*.edgeone.cool`），但公开访问的默认域名带平台访问鉴权（401），关闭公开鉴权需要绑定 ICP 备案域名（大陆加速节点同样要求备案），故搁置。Gitee 仓库（freeparkmap）继续作为代码镜像保留。
 
 ## 功能清单
 

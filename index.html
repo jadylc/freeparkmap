@@ -28,7 +28,7 @@
     background: var(--bg);
     overflow: hidden;
   }
-  #app { display: flex; height: 100%; }
+  #app { display: flex; height: 100%; overflow: hidden; }
 
   /* ---------- 左侧面板（桌面）/ 底部抽屉（移动端） ---------- */
   #panel {
@@ -38,6 +38,7 @@
     display: flex;
     flex-direction: column;
     border-right: 1px solid var(--line);
+    transition: margin-left .28s cubic-bezier(.4, 0, .2, 1);
     z-index: 1000;
   }
   .panel-head { padding: 14px 14px 10px; border-bottom: 1px solid var(--line); flex: none; }
@@ -49,6 +50,12 @@
     display: flex; align-items: center; justify-content: center;
   }
   .brand h1 { font-size: 17px; font-weight: 700; letter-spacing: .5px; }
+  #collapse-btn {
+    margin-left: auto; width: 30px; height: 30px; border: 0; border-radius: 8px;
+    background: transparent; color: var(--text-2); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #collapse-btn:hover { background: var(--bg); color: var(--text); }
   .search-box { position: relative; }
   .search-box input {
     width: 100%; padding: 10px 38px 10px 36px;
@@ -108,6 +115,15 @@
     display: flex; align-items: center; justify-content: center;
     color: var(--primary-dark);
   }
+  #expand-btn {
+    position: absolute; left: 12px; top: 12px; z-index: 1000;
+    width: 38px; height: 38px; border: 0; border-radius: 10px;
+    background: #fff; box-shadow: var(--shadow); cursor: pointer;
+    display: none; align-items: center; justify-content: center;
+    color: var(--primary-dark);
+  }
+  #app.collapsed #panel { margin-left: calc(0px - var(--panel-w)); }
+  #app.collapsed #expand-btn { display: flex; }
   .p-marker .p-pin {
     width: 30px; height: 30px; border-radius: 50% 50% 50% 4px;
     transform: rotate(-45deg);
@@ -128,6 +144,8 @@
   /* ---------- 移动端 ---------- */
   @media (max-width: 768px) {
     #app { display: block; }
+    #app.collapsed #panel { margin-left: 0; }
+    #collapse-btn, #expand-btn { display: none !important; }
     #map { position: absolute; inset: 0; height: 100%; }
     #panel {
       position: fixed; left: 0; right: 0; bottom: 0; top: auto;
@@ -159,6 +177,9 @@
       <div class="brand">
         <div class="logo">P</div>
         <h1>上海免费停车点</h1>
+        <button id="collapse-btn" title="收起列表" aria-label="收起列表">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/></svg>
+        </button>
       </div>
       <div class="search-box">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -172,6 +193,9 @@
   </aside>
   <div id="map"></div>
 </div>
+<button id="expand-btn" title="展开列表" aria-label="展开列表">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
 <button id="reset-btn" title="回到全图">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 3v6h6"/></svg>
 </button>
@@ -188,18 +212,13 @@ const map = L.map("map", {
   maxZoom: 18
 });
 
-// 默认底图：高德街道图（GCJ-02，国内加载快，中文标注）
+// 底图：高德街道图（GCJ-02，与数据坐标系一致，国内加载快）
+// （曾提供 OpenStreetMap 备选，因国内网络基本无法加载其瓦片，已移除）
 const gaode = L.tileLayer(
   "https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
   { subdomains: ["1", "2", "3", "4"], maxZoom: 18, attribution: "© 高德地图" }
 ).addTo(map);
 
-// 备选底图：OpenStreetMap（WGS-84；切换后高德坐标系的数据会有几百米偏移）
-const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19, attribution: "© OpenStreetMap"
-});
-
-L.control.layers({ "高德地图": gaode, "OpenStreetMap": osm }, null, { position: "topright" }).addTo(map);
 document.getElementById("reset-btn").addEventListener("click", () => map.setView(SH_CENTER, 11));
 
 /* ---------- 区筛选与搜索状态 ---------- */
@@ -313,6 +332,15 @@ let t;
 searchEl.addEventListener("input", () => { clearTimeout(t); t = setTimeout(applyFilter, 150); });
 clearEl.addEventListener("click", () => { searchEl.value = ""; applyFilter(); searchEl.focus(); });
 searchEl.addEventListener("keydown", e => { if (e.key === "Enter") searchEl.blur(); }); // 收起手机键盘
+
+/* ---------- 桌面端侧栏收起/展开 ---------- */
+const appEl = document.getElementById("app");
+function togglePanel(collapse) {
+  appEl.classList.toggle("collapsed", collapse);
+  setTimeout(() => map.invalidateSize(), 320); // 等过渡动画结束再让地图重算尺寸
+}
+document.getElementById("collapse-btn").addEventListener("click", () => togglePanel(true));
+document.getElementById("expand-btn").addEventListener("click", () => togglePanel(false));
 
 /* ---------- 移动端抽屉 ---------- */
 const grip = document.getElementById("grip");
